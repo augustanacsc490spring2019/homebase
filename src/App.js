@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import firebase from './firebase'
 import Home from './pages/Home';
 import Page from './pages/Page'
 import './App.css';
