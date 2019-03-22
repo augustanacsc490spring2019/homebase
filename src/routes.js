@@ -15,7 +15,6 @@ import Typography from "views/Typography/Typography.jsx";
 import Icons from "views/Icons/Icons.jsx";
 import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
-import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.jsx";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.jsx";
 
@@ -74,14 +73,6 @@ const dashboardRoutes = [
     rtlName: "إخطارات",
     icon: Notifications,
     component: NotificationsPage,
-    layout: "/admin"
-  },
-  {
-    path: "/upgrade-to-pro",
-    name: "Upgrade To PRO",
-    rtlName: "التطور للاحترافية",
-    icon: Unarchive,
-    component: UpgradeToPro,
     layout: "/admin"
   },
   {
