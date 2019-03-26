@@ -15,6 +15,7 @@ import Typography from "views/Typography/Typography.jsx";
 import Icons from "views/Icons/Icons.jsx";
 import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
+import PropertiesPage from "views/Properties/Properties.jsx";
 // core components/views for RTL layout
 // import RTLPage from "views/RTLPage/RTLPage.jsx";
 
@@ -67,14 +68,14 @@ const dashboardRoutes = [
     icon: Notifications,
     component: NotificationsPage,
     layout: "/admin"
+  },
+  {
+    path: "/properties",
+    name: "Properties",
+    icon: Dashboard,
+    component: PropertiesPage,
+    layout: "/properties"
   }
-  // {
-  //   path: "/properties",
-  //   name: "Properties",
-  //   icon: home,
-  //   component: PropertiesPage,
-  //   layout: "/properties"
-  // }
 ];
 
 export default dashboardRoutes;
