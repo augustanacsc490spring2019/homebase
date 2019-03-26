@@ -74,7 +74,7 @@ const dashboardRoutes = [
     name: "Properties",
     icon: Dashboard,
     component: PropertiesPage,
-    layout: "/properties"
+    layout: "/admin"
   }
 ];
 

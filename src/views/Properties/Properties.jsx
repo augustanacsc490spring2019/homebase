@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import MediaCard from "@material-ui/core/CardMedia";
+import MediaCard from '@material-ui/core/CardMedia';
 
 import { bugs, website, server } from "variables/general.jsx";
 
@@ -28,9 +28,11 @@ class Properties extends React.Component {
                         <Card className={classes.card}>
                             <CardActionArea>
                                 <CardMedia
+                                    component="img"
                                     className={classes.media}
-                                    image="/static/images/cards/contemplative-reptile.jpg"
-                                    title="Contemplative Reptile"
+                                    height="140"
+                                    image="/build/static/media/homes/home1.jpg"
+                                    title="Home One"
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">
