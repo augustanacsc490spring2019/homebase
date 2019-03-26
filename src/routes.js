@@ -22,7 +22,6 @@ const dashboardRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",
-    rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: DashboardPage,
     layout: "/admin"
@@ -30,7 +29,6 @@ const dashboardRoutes = [
   {
     path: "/user",
     name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
     icon: Person,
     component: UserProfile,
     layout: "/admin"
@@ -38,7 +36,6 @@ const dashboardRoutes = [
   {
     path: "/table",
     name: "Table List",
-    rtlName: "قائمة الجدول",
     icon: "content_paste",
     component: TableList,
     layout: "/admin"
@@ -46,7 +43,6 @@ const dashboardRoutes = [
   {
     path: "/typography",
     name: "Typography",
-    rtlName: "طباعة",
     icon: LibraryBooks,
     component: Typography,
     layout: "/admin"
@@ -54,7 +50,6 @@ const dashboardRoutes = [
   {
     path: "/icons",
     name: "Icons",
-    rtlName: "الرموز",
     icon: BubbleChart,
     component: Icons,
     layout: "/admin"
@@ -62,7 +57,6 @@ const dashboardRoutes = [
   {
     path: "/maps",
     name: "Maps",
-    rtlName: "خرائط",
     icon: LocationOn,
     component: Maps,
     layout: "/admin"
@@ -70,17 +64,14 @@ const dashboardRoutes = [
   {
     path: "/notifications",
     name: "Notifications",
-    rtlName: "إخطارات",
     icon: Notifications,
     component: NotificationsPage,
     layout: "/admin"
   }
-  // ,
   // {
   //   path: "/properties",
   //   name: "Properties",
-  //   rtlName: "",
-  //   icon: Home,
+  //   icon: home,
   //   component: PropertiesPage,
   //   layout: "/properties"
   // }
