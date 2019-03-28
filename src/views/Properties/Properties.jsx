@@ -31,8 +31,9 @@ class Properties extends React.Component {
                                     component="img"
                                     className={classes.media}
                                     height="140"
-                                    image="/build/static/media/homes/home1.jpg"
+                                    image={require('../../assets/img/homes/home1.jpg')}
                                     title="Home One"
+                                    style={styles.media}
                                 />
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">

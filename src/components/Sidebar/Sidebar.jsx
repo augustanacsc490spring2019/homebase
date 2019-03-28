@@ -50,12 +50,12 @@ const Sidebar = ({ ...props }) => {
                   {prop.icon}
                 </Icon>
               ) : (
-                <prop.icon
-                  className={classNames(classes.itemIcon, whiteFontClasses, {
-                    [classes.itemIconRTL]: props.rtlActive
-                  })}
-                />
-              )}
+                  <prop.icon
+                    className={classNames(classes.itemIcon, whiteFontClasses, {
+                      [classes.itemIconRTL]: props.rtlActive
+                    })}
+                  />
+                )}
               <ListItemText
                 primary={
                   props.rtlActive ? prop.rtlName : prop.name
@@ -80,7 +80,7 @@ const Sidebar = ({ ...props }) => {
         })}
       >
         <div className={classes.logoImage}>
-          <img src={logo} alt="logo" className={classes.img} />
+          <img src={require('../../assets/img/homebaselogo.png')} alt="logo" className={classes.img} />
         </div>
         {logoText}
       </a>
