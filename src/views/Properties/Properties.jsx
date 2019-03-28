@@ -12,6 +12,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import MediaCard from '@material-ui/core/CardMedia';
 
+import PropertyItem from '../../components/PropertyItem'
 import { bugs, website, server } from "variables/general.jsx";
 
 const styles = {
@@ -21,48 +22,22 @@ const styles = {
 class Properties extends React.Component {
     render() {
         const { classes } = this.props;
+        const sampleDescription = "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica"
         return (
             <div>
-                <GridContainer>
-                    <GridItem xs={12} sm={6} md={3}>
-                        <Card className={classes.card}>
-                            <CardActionArea>
-                                <CardMedia
-                                    component="img"
-                                    className={classes.media}
-                                    height="140"
-                                    image={require('../../assets/img/homes/home1.jpg')}
-                                    title="Home One"
-                                    style={styles.media}
-                                />
-                                <CardContent>
-                                    <Typography gutterBottom variant="h5" component="h2">
-                                        Lizard
-                            </Typography>
-                                    <Typography component="p">
-                                        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                        across all continents except Antarctica
-                            </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                            </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                            </Button>
-                            </CardActions>
-                        </Card>
-                    </GridItem>
-                </GridContainer>
+                <PropertyItem 
+                    imagePath={'img/homes/home1.jpg'}
+                    address={"Home One"}
+                    description={sampleDescription}
+                    styles={styles}
+                    classes={classes} />
             </div>
         );
     }
 }
 
-MediaCard.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
+// MediaCard.propTypes = {
+//     classes: PropTypes.object.isRequired,
+// };
 
 export default withStyles(styles)(Properties);
