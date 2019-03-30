@@ -67,6 +67,7 @@ export default class AddListing extends Component {
                     }}
                 />
                 <Button color="primary">Add Property</Button>
+                <Button color="info">Clear Form</Button>
             </form>
         )
     }

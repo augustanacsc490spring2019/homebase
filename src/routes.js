@@ -75,6 +75,7 @@ const dashboardRoutes = [
     name: "Add Listing",
     icon: Notifications,
     component: AddListing,
+    layout: "/admin"
   },
   {
     path: "/properties",
