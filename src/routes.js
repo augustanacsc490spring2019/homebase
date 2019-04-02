@@ -17,6 +17,7 @@ import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import AddListing from "views/Forms/AddListing.jsx";
 import PropertiesPage from "views/Properties/Properties.jsx";
+import FirebaseTest from "views/FirebaseTest/FirebaseTest.jsx";
 // core components/views for RTL layout
 // import RTLPage from "views/RTLPage/RTLPage.jsx";
 
@@ -82,6 +83,13 @@ const dashboardRoutes = [
     name: "Properties",
     icon: Dashboard,
     component: PropertiesPage,
+    layout: "/admin"
+  },
+  {
+    path: "/firebasetest",
+    name: "FirebaseTest",
+    icon: Dashboard,
+    component: FirebaseTest,
     layout: "/admin"
   }
 ];
