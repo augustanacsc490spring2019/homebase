@@ -2,17 +2,37 @@ import React, { Component } from "react";
 import firebase from "../../firebase";
 import CustomInput from "../../components/CustomInput/CustomInput.jsx";
 import Button from "../../components/CustomButtons/Button.jsx";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 export default class FirebaseTest extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      isSignedIn: false,
       number: 0,
       name: ""
     };
     this.buttonHandler = this.buttonHandler.bind(this);
     this.pushToFirebase = this.pushToFirebase.bind(this);
     this.submitNameHandler = this.submitNameHandler.bind(this);
+    this.uiConfig = {
+      signInFlow: "popup",
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.EmailAuthProvider.PROVIDER_ID
+      ],
+      callbacks: {
+        signInSuccess: () => false
+      }
+    };
+  }
+
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({
+        isSignedIn: !!user
+      });
+    });
   }
 
   buttonHandler(e) {
@@ -48,6 +68,24 @@ export default class FirebaseTest extends Component {
   render() {
     return (
       <div>
+        {console.log(this.state.isSignedIn)}
+        {this.state.isSignedIn ? (
+          <div>
+            <h1>
+              Logged In! Welcome {firebase.auth().currentUser.displayName}
+            </h1>
+            <Button color="primary" onClick={() => firebase.auth().signOut()}>
+              Click to sign out
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <StyledFirebaseAuth
+              uiConfig={this.uiConfig}
+              firebaseAuth={firebase.auth()}
+            />
+          </div>
+        )}
         <CustomInput
           labelText="Name"
           id="name"
@@ -64,7 +102,9 @@ export default class FirebaseTest extends Component {
           Submit Name
         </Button>
         <h1>{this.state.number}</h1>
-        <Button onClick={this.buttonHandler}>Generate Random Number</Button>
+        <Button color="primary" onClick={this.buttonHandler}>
+          Generate Random Number
+        </Button>
       </div>
     );
   }
