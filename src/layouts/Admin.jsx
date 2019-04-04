@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from "react";
 import PropTypes from "prop-types";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -11,7 +11,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Navbar from "components/Navbars/Navbar.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.jsx";
+import posed, { PoseGroup } from 'react-pose';
+
 
 import routes from "routes.js";
 
@@ -20,20 +21,29 @@ import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboar
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
+const RouteContainer = posed.div({
+  enter: { opacity: 1, delay: 300, beforeChildren: true },
+  exit: { opacity: 0 }
+});
+
 const switchRoutes = (
-  <Switch>
-    {routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      }
-    })}
-  </Switch>
+  <PoseGroup>
+    <RouteContainer key={location.key}>
+      <Switch location={location}>
+        {routes.map((prop, key) => {
+          if (prop.layout === "/admin") {
+            return (
+              <Route
+                path={prop.layout + prop.path}
+                component={prop.component}
+                key={key}
+              />
+            );
+          }
+        })}
+      </Switch>
+    </RouteContainer>
+  </PoseGroup>
 );
 
 class Dashboard extends React.Component {
@@ -114,8 +124,8 @@ class Dashboard extends React.Component {
               <div className={classes.container}>{switchRoutes}</div>
             </div>
           ) : (
-            <div className={classes.map}>{switchRoutes}</div>
-          )}
+              <div className={classes.map}>{switchRoutes}</div>
+            )}
           {this.getRoute() ? <Footer /> : null}
           {/* <FixedPlugin
             handleImageClick={this.handleImageClick}

@@ -5,9 +5,6 @@ import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import LocationOn from "@material-ui/icons/LocationOn";
 import Notifications from "@material-ui/icons/Notifications";
-// import Unarchive from "@material-ui/icons/Unarchive";
-// import Language from "@material-ui/icons/Language";
-// core components/views for Admin layout
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import UserProfile from "views/UserProfile/UserProfile.jsx";
 import TableList from "views/TableList/TableList.jsx";
@@ -17,8 +14,6 @@ import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import AddListing from "views/Forms/AddListing.jsx";
 import PropertiesPage from "views/Properties/Properties.jsx";
-// core components/views for RTL layout
-// import RTLPage from "views/RTLPage/RTLPage.jsx";
 
 const dashboardRoutes = [
   {
