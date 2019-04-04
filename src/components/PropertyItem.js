@@ -10,11 +10,12 @@ import Typography from '@material-ui/core/Typography';
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import MediaCard from '@material-ui/core/CardMedia';
+import ButtonBase from '@material-ui/core/ButtonBase';
 
 class PropertyItem extends React.Component {
     constructor(props) {
         super(props)
-        
+
     }
     render() {
         return (
@@ -26,7 +27,8 @@ class PropertyItem extends React.Component {
                                 <CardMedia
                                     component="img"
                                     className={this.props.classes.media}
-                                    height="140"
+                                    height="100%"
+                                    width="100%"
                                     image={require(`../assets/${this.props.imagePath}`)}
                                     title={this.props.address}
                                     style={this.props.styles.media}
@@ -34,20 +36,12 @@ class PropertyItem extends React.Component {
                                 <CardContent>
                                     <Typography gutterBottom variant="h5" component="h2">
                                         {this.props.address}
-                        </Typography>
+                                    </Typography>
                                     <Typography component="p">
                                         {this.props.description}
-                        </Typography>
+                                    </Typography>
                                 </CardContent>
                             </CardActionArea>
-                            <CardActions>
-                                <Button size="small" color="primary">
-                                    Share
-                        </Button>
-                                <Button size="small" color="primary">
-                                    Learn More
-                        </Button>
-                            </CardActions>
                         </Card>
                     </GridItem>
                 </GridContainer>
