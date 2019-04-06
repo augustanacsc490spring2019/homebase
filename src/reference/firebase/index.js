@@ -10,4 +10,9 @@ var config = {
 };
 firebase.initializeApp(config);
 
+export const pushToFirebase = (reference, object) => {
+    const ref = firebase.database().ref(reference);
+    ref.push(object);
+}
+
 export default firebase;
