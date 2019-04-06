@@ -15,16 +15,32 @@ import MediaCard from '@material-ui/core/CardMedia';
 import PropertyItem from '../../components/PropertyItem'
 import { bugs, website, server } from "variables/general.jsx";
 
+import {pullFromFirebase} from '../../reference/firebase'
+
 const styles = {
 
 }
 
 class Properties extends React.Component {
+    state = {
+        listings: []
+    }
+
+    listProperties = () => {
+        pullFromFirebase("listings", (snapshot)=>{
+            snapshot.forEach((item) => {
+                this.state.listings.push(item.val())
+            });
+        });
+        this.forceUpdate();
+    }
+
     render() {
         const { classes } = this.props;
         const sampleDescription = "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica"
+        const listings = this.state.listings;
         return (
-            <div>
+            <div onLoad={this.listProperties}>
                 <PropertyItem 
                     imagePath={'img/homes/home1.jpg'}
                     address={"Home One"}
