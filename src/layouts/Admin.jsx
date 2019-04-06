@@ -27,8 +27,6 @@ const RouteContainer = posed.div({
 });
 
 const switchRoutes = (
-  <PoseGroup>
-    <RouteContainer key={location.key}>
       <Switch location={location}>
         {routes.map((prop, key) => {
           if (prop.layout === "/admin") {
@@ -42,8 +40,6 @@ const switchRoutes = (
           }
         })}
       </Switch>
-    </RouteContainer>
-  </PoseGroup>
 );
 
 class Dashboard extends React.Component {
