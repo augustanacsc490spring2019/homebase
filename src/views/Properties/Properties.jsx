@@ -16,6 +16,7 @@ import PropertyItem from '../../components/PropertyItem'
 import { bugs, website, server } from "variables/general.jsx";
 
 import {pullFromFirebase} from '../../reference/firebase'
+import { debug } from 'util';
 
 const styles = {
 
@@ -28,25 +29,32 @@ class Properties extends React.Component {
 
     listProperties = () => {
         pullFromFirebase("listings", (snapshot)=>{
+            let listings = this.state.listings;
             snapshot.forEach((item) => {
-                this.state.listings.push(item.val())
+                listings = listings.concat(item.val());
             });
+            this.setState({listings: listings});
         });
-        this.forceUpdate();
+    }
+
+    componentDidMount() {
+        this.listProperties();
     }
 
     render() {
         const { classes } = this.props;
-        const sampleDescription = "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica"
-        const listings = this.state.listings;
+        const {listings} = this.state;
         return (
-            <div onLoad={this.listProperties}>
-                <PropertyItem 
+            <div>
+            {listings.map((listing, key) => 
+                (<PropertyItem 
+                    key={key}
                     imagePath={'img/homes/home1.jpg'}
                     address={"Home One"}
-                    description={sampleDescription}
+                    description={listing.desc}
                     styles={styles}
-                    classes={classes} />
+                    classes={classes} />)
+            )}
             </div>
         );
     }
