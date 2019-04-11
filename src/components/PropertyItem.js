@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -15,27 +16,29 @@ class PropertyItem extends React.Component {
     render() {
         return (
             <GridItem xs={12} sm={6} md={3}>
-                <Card className={this.props.classes.card}>
-                    <CardActionArea>
-                        <CardMedia
-                            component="img"
-                            className={this.props.classes.media}
-                            height="100%"
-                            width="100%"
-                            image={require(`../assets/${this.props.imagePath}`)}
-                            title={this.props.address}
-                            style={this.props.styles.media}
-                        />
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                                {this.props.address}
-                            </Typography>
-                            <Typography component="p">
-                                {this.props.description}
-                            </Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </Card>
+                <Link to={`/listing/${this.props.id}`}>
+                    <Card className={this.props.classes.card}>
+                        <CardActionArea>
+                            <CardMedia
+                                component="img"
+                                className={this.props.classes.media}
+                                height="100%"
+                                width="100%"
+                                image={require(`../assets/${this.props.imagePath}`)}
+                                title={this.props.address}
+                                style={this.props.styles.media}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    {this.props.address}
+                                </Typography>
+                                <Typography component="p">
+                                    {this.props.description}
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                    </Card>
+                </Link>
             </GridItem>
         )
     }

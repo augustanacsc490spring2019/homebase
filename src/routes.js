@@ -14,6 +14,7 @@ import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import AddListing from "views/Forms/AddListing.jsx";
 import PropertiesPage from "views/Properties/Properties.jsx";
+import PropertyItem from './components/PropertyItem'
 
 const dashboardRoutes = [
   {
