@@ -31,7 +31,9 @@ class Properties extends React.Component {
         pullFromFirebase("listings", (snapshot)=>{
             let listings = this.state.listings;
             snapshot.forEach((item) => {
-                listings = listings.concat(item.val());
+                listings = listings.concat({
+                    id: item.key,
+                    ...item.val()});
             });
             this.setState({listings: listings});
         });
@@ -43,25 +45,24 @@ class Properties extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const {listings} = this.state;
+        const { listings } = this.state;
         return (
-            <div>
-            {listings.map((listing, key) => 
-                (<PropertyItem 
-                    key={key}
-                    imagePath={'img/homes/home1.jpg'}
-                    address={"Home One"}
-                    description={listing.desc}
-                    styles={styles}
-                    classes={classes} />)
-            )}
-            </div>
+            <GridContainer>
+                {listings.map((listing, key) =>
+                    (
+                    <PropertyItem
+                        id={listing.id}
+                        key={key}
+                        imagePath={'img/homes/home1.jpg'}
+                        address={"Home One"}
+                        description={listing.desc}
+                        styles={styles}
+                        classes={classes}
+                    />)
+                )}
+            </GridContainer>
         );
     }
 }
-
-// MediaCard.propTypes = {
-//     classes: PropTypes.object.isRequired,
-// };
 
 export default withStyles(styles)(Properties);
