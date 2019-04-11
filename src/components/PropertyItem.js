@@ -9,10 +9,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 
 class PropertyItem extends React.Component {
-    constructor(props) {
-        super(props)
 
-    }
     render() {
         return (
             <GridItem xs={12} sm={6} md={3}>

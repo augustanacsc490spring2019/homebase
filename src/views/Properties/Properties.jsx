@@ -13,19 +13,36 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import MediaCard from '@material-ui/core/CardMedia';
 
 import PropertyItem from '../../components/PropertyItem'
+import ModalInfo from '../../components/ModalInfo'
 import { bugs, website, server } from "variables/general.jsx";
 
 import {pullFromFirebase} from '../../reference/firebase'
 import { debug } from 'util';
 
-const styles = {
-
-}
+const styles = {}
+const style = {
+    text: {
+      textAlign: "center"
+    },
+    mainConatinerStyle: {
+      flexDirection: "column",
+      flex: 1
+    },
+    floatingMenuButtonStyle: {
+      alignSelf: "flex-end",
+      position: "absolute",
+      bottom: 10,
+      right: 10
+    }
+  };
 
 class Properties extends React.Component {
     state = {
-        listings: []
+        listings: [],
+        modalOpen: false
     }
+    handleOpen = () => this.setState({ modalOpen: true })
+    handleClose = () => this.setState({ modalOpen: false })
 
     listProperties = () => {
         pullFromFirebase("listings", (snapshot)=>{
@@ -58,6 +75,7 @@ class Properties extends React.Component {
                         description={listing.desc}
                         styles={styles}
                         classes={classes}
+                        
                     />)
                 )}
             </GridContainer>
