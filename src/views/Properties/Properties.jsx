@@ -13,31 +13,74 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import MediaCard from '@material-ui/core/CardMedia';
 
 import PropertyItem from '../../components/PropertyItem'
+import ModalInfo from '../../components/ModalInfo'
 import { bugs, website, server } from "variables/general.jsx";
 
-const styles = {
+import {pullFromFirebase} from '../../reference/firebase'
+import { debug } from 'util';
 
-}
+const styles = {}
+const style = {
+    text: {
+      textAlign: "center"
+    },
+    mainConatinerStyle: {
+      flexDirection: "column",
+      flex: 1
+    },
+    floatingMenuButtonStyle: {
+      alignSelf: "flex-end",
+      position: "absolute",
+      bottom: 10,
+      right: 10
+    }
+  };
 
 class Properties extends React.Component {
+    state = {
+        listings: [],
+        modalOpen: false
+    }
+    handleOpen = () => this.setState({ modalOpen: true })
+    handleClose = () => this.setState({ modalOpen: false })
+
+    listProperties = () => {
+        pullFromFirebase("listings", (snapshot)=>{
+            let listings = this.state.listings;
+            snapshot.forEach((item) => {
+                listings = listings.concat({
+                    id: item.key,
+                    ...item.val()});
+            });
+            this.setState({listings: listings});
+        });
+    }
+
+    componentDidMount() {
+        this.listProperties();
+    }
+
     render() {
         const { classes } = this.props;
-        const sampleDescription = "Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica"
+        const { listings } = this.state;
         return (
-            <div>
-                <PropertyItem 
-                    imagePath={'img/homes/home1.jpg'}
-                    address={"Home One"}
-                    description={sampleDescription}
-                    styles={styles}
-                    classes={classes} />
-            </div>
+            <GridContainer>
+                {listings.map((listing, key) =>
+                    (
+                    <PropertyItem
+                        id={listing.id}
+                        key={key}
+                        imagePath={'img/homes/home1.jpg'}
+                        address={"Home One"}
+                        description={listing.desc}
+                        styles={styles}
+                        classes={classes}
+                        
+                    />)
+                )}
+            </GridContainer>
         );
     }
 }
-
-// MediaCard.propTypes = {
-//     classes: PropTypes.object.isRequired,
-// };
 
 export default withStyles(styles)(Properties);
