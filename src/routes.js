@@ -14,13 +14,10 @@ import Maps from "views/Maps/Maps.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
 import AddListing from "views/Forms/AddListing.jsx";
 import PropertiesPage from "views/Properties/Properties.jsx";
-<<<<<<< HEAD
 import FirebaseTest from "views/FirebaseTest/FirebaseTest.jsx";
 // core components/views for RTL layout
 // import RTLPage from "views/RTLPage/RTLPage.jsx";
-=======
-import PropertyItem from './components/PropertyItem'
->>>>>>> ca8ecef056f3cccc631364403aff7d04c61694f6
+import PropertyItem from "./components/PropertyItem";
 
 const dashboardRoutes = [
   {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import firebase from "../../firebase";
+import firebase from "../../reference/firebase";
 import CustomInput from "../../components/CustomInput/CustomInput.jsx";
 import Button from "../../components/CustomButtons/Button.jsx";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";

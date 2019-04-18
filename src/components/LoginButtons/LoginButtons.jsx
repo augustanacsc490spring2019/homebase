@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import firebase from "../../firebase";
+import firebase from "../references/firebase";
 import Button from "../../components/CustomButtons/Button.jsx";
 import FirebaseAuth from "react-firebaseui/FirebaseAuth";
 

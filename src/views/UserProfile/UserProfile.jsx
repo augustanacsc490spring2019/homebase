@@ -14,6 +14,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 
 import avatar from "assets/img/faces/marc.jpg";
+import firebase from "../../reference/firebase";
 
 const styles = {
   cardCategoryWhite: {
@@ -38,6 +39,7 @@ function UserProfile(props) {
   const { classes } = props;
   return (
     <div>
+      {}
       <GridContainer>
         <GridItem xs={12} sm={12} md={8}>
           <Card>

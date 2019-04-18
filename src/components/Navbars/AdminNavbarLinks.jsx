@@ -14,6 +14,8 @@ import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
 import Dashboard from "@material-ui/icons/Dashboard";
 import Search from "@material-ui/icons/Search";
+
+import { Link } from "react-router-dom";
 // core components
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
@@ -156,6 +158,8 @@ class HeaderLinks extends React.Component {
           simple={!(window.innerWidth > 959)}
           aria-label="Person"
           className={classes.buttonLink}
+          component={Link}
+          to="/admin/user"
         >
           <Person className={classes.icons} />
           <Hidden mdUp implementation="css">
