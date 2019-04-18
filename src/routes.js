@@ -21,74 +21,84 @@ import PropertyItem from "./components/PropertyItem";
 
 const dashboardRoutes = [
   {
+    path: "/properties",
+    name: "Properties",
+    icon: Dashboard,
+    component: PropertiesPage,
+    layout: "/admin",
+    display: true
+  },
+  {
     path: "/dashboard",
     name: "Dashboard",
     icon: Dashboard,
     component: DashboardPage,
-    layout: "/admin"
+    layout: "/admin",
+    display: false
   },
   {
     path: "/user",
     name: "User Profile",
     icon: Person,
     component: UserProfile,
-    layout: "/admin"
+    layout: "/admin",
+    display: false
   },
   {
     path: "/table",
     name: "Table List",
     icon: "content_paste",
     component: TableList,
-    layout: "/admin"
+    layout: "/admin",
+    display: false
   },
   {
     path: "/typography",
     name: "Typography",
     icon: LibraryBooks,
     component: Typography,
-    layout: "/admin"
+    layout: "/admin",
+    display: false
   },
   {
     path: "/icons",
     name: "Icons",
     icon: BubbleChart,
     component: Icons,
-    layout: "/admin"
+    layout: "/admin",
+    display: false
   },
   {
     path: "/maps",
     name: "Maps",
     icon: LocationOn,
     component: Maps,
-    layout: "/admin"
+    layout: "/admin",
+    display: true
   },
   {
     path: "/notifications",
     name: "Notifications",
     icon: Notifications,
     component: NotificationsPage,
-    layout: "/admin"
+    layout: "/admin",
+    display: false
   },
   {
     path: "/listings/add",
     name: "Add Listing",
     icon: Notifications,
     component: AddListing,
-    layout: "/admin"
-  },
-  {
-    path: "/properties",
-    name: "Properties",
-    icon: Dashboard,
-    component: PropertiesPage,
-    layout: "/admin"
+    layout: "/admin",
+    display: true
   },
   {
     path: "/firebasetest",
     name: "FirebaseTest",
     icon: Dashboard,
     component: FirebaseTest,
-    layout: "/admin"
+    layout: "/admin",
+    display: false
   }
 ];
 

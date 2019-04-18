@@ -5,18 +5,20 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 
 // core components
 import Admin from "layouts/Admin.jsx";
-import PropertyInfo from './components/PropertyInfo'
+import PropertyInfo from "./components/PropertyInfo";
 
 import "assets/css/material-dashboard-react.css?v=1.6.0";
 
-const hist = createBrowserHistory();
+const hist = createBrowserHistory({
+  basename: process.env.PUBLIC_URL
+});
 
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
       <Route path="/admin" component={Admin} />
       <Route path="/listing/:id" component={PropertyInfo} />
-      <Redirect from="/" to="/admin/dashboard" />
+      <Redirect from="/" to="/admin/properties" />
     </Switch>
   </Router>,
   document.getElementById("root")

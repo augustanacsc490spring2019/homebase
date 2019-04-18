@@ -21,10 +21,13 @@ const Sidebar = ({ ...props }) => {
   function activeRoute(routeName) {
     return props.location.pathname.indexOf(routeName) > -1 ? true : false;
   }
-  const { classes, color, logo, image, logoText, routes } = props;
+  const { classes, color, logo, image, logoText, routes, display } = props;
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
+        if (!prop.display) {
+          return;
+        }
         var activePro = " ";
         var listItemClasses;
         listItemClasses = classNames({
@@ -33,6 +36,7 @@ const Sidebar = ({ ...props }) => {
         const whiteFontClasses = classNames({
           [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path)
         });
+
         return (
           <NavLink
             to={prop.layout + prop.path}
