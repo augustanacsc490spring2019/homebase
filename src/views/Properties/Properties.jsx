@@ -73,6 +73,7 @@ class Properties extends React.Component {
                         imagePath={'img/homes/home1.jpg'}
                         address={listing.name}
                         description={listing.desc}
+                        info={listing}
                         styles={styles}
                         classes={classes}
                         

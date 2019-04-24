@@ -12,7 +12,12 @@ class PropertyItem extends React.Component {
   render() {
     return (
       <GridItem xs={12} sm={6} md={3} style={{ margin: "1em 0" }}>
-        <Link to={`/listing/${this.props.id}`}>
+        <Link to={{
+          pathname:`/listing/${this.props.id}`,
+          state:{
+            info: this.props.info
+          }
+          }}>
           <Card className={this.props.classes.card}>
             <CardActionArea>
               <CardMedia
