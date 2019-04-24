@@ -71,7 +71,7 @@ class Properties extends React.Component {
                         id={listing.id}
                         key={key}
                         imagePath={'img/homes/home1.jpg'}
-                        address={"Home One"}
+                        address={listing.name}
                         description={listing.desc}
                         styles={styles}
                         classes={classes}
