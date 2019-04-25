@@ -42,7 +42,7 @@ const dashboardRoutes = [
     icon: Person,
     component: UserProfile,
     layout: "/admin",
-    display: false
+    display: true
   },
   {
     path: "/table",

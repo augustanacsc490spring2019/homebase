@@ -2,6 +2,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -11,13 +13,13 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Navbar from "components/Navbars/Navbar.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
-import posed, { PoseGroup } from 'react-pose';
-
+import posed, { PoseGroup } from "react-pose";
 
 import routes from "routes.js";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
+import store from "../reference/redux/store.jsx";
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
@@ -27,19 +29,19 @@ const RouteContainer = posed.div({
 });
 
 const switchRoutes = (
-      <Switch location={location}>
-        {routes.map((prop, key) => {
-          if (prop.layout === "/admin") {
-            return (
-              <Route
-                path={prop.layout + prop.path}
-                component={prop.component}
-                key={key}
-              />
-            );
-          }
-        })}
-      </Switch>
+  <Switch location={location}>
+    {routes.map((prop, key) => {
+      if (prop.layout === "/admin") {
+        return (
+          <Route
+            path={prop.layout + prop.path}
+            component={prop.component}
+            key={key}
+          />
+        );
+      }
+    })}
+  </Switch>
 );
 
 class Dashboard extends React.Component {
@@ -96,34 +98,36 @@ class Dashboard extends React.Component {
   }
   render() {
     const { classes, ...rest } = this.props;
+
     return (
-      <div className={classes.wrapper}>
-        <Sidebar
-          routes={routes}
-          logoText={"homebase"}
-          logo={logo}
-          image={this.state.image}
-          handleDrawerToggle={this.handleDrawerToggle}
-          open={this.state.mobileOpen}
-          color={this.state.color}
-          {...rest}
-        />
-        <div className={classes.mainPanel} ref="mainPanel">
-          <Navbar
+      <Provider store={store}>
+        <div className={classes.wrapper}>
+          <Sidebar
             routes={routes}
+            logoText={"homebase"}
+            logo={logo}
+            image={this.state.image}
             handleDrawerToggle={this.handleDrawerToggle}
+            open={this.state.mobileOpen}
+            color={this.state.color}
             {...rest}
           />
-          {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-          {this.getRoute() ? (
-            <div className={classes.content}>
-              <div className={classes.container}>{switchRoutes}</div>
-            </div>
-          ) : (
+          <div className={classes.mainPanel} ref="mainPanel">
+            <Navbar
+              routes={routes}
+              handleDrawerToggle={this.handleDrawerToggle}
+              {...rest}
+            />
+            {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
+            {this.getRoute() ? (
+              <div className={classes.content}>
+                <div className={classes.container}>{switchRoutes}</div>
+              </div>
+            ) : (
               <div className={classes.map}>{switchRoutes}</div>
             )}
-          {this.getRoute() ? <Footer /> : null}
-          {/* <FixedPlugin
+            {this.getRoute() ? <Footer /> : null}
+            {/* <FixedPlugin
             handleImageClick={this.handleImageClick}
             handleColorClick={this.handleColorClick}
             bgColor={this.state["color"]}
@@ -131,14 +135,16 @@ class Dashboard extends React.Component {
             handleFixedClick={this.handleFixedClick}
             fixedClasses={this.state.fixedClasses}
           /> */}
+          </div>
         </div>
-      </div>
+      </Provider>
     );
   }
 }
 
 Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired
 };
 
 export default withStyles(dashboardStyle)(Dashboard);
