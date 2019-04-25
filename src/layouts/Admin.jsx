@@ -1,9 +1,9 @@
 /* eslint-disable */
 import React from "react";
 import PropTypes from "prop-types";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
+import { Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { compose } from "redux";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -19,7 +19,8 @@ import routes from "routes.js";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx";
 
-import store from "../reference/redux/store.jsx";
+import firebase from "../reference/firebase";
+import { logIn, logOut } from "../reference/redux/actions/userAction";
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
@@ -84,6 +85,10 @@ class Dashboard extends React.Component {
       const ps = new PerfectScrollbar(this.refs.mainPanel);
     }
     window.addEventListener("resize", this.resizeFunction);
+
+    firebase.auth().onAuthStateChanged(user => {
+      !!user ? this.props.logIn() : this.props.logOut();
+    });
   }
   componentDidUpdate(e) {
     if (e.history.location.pathname !== e.location.pathname) {
@@ -100,34 +105,33 @@ class Dashboard extends React.Component {
     const { classes, ...rest } = this.props;
 
     return (
-      <Provider store={store}>
-        <div className={classes.wrapper}>
-          <Sidebar
+      <div className={classes.wrapper}>
+        <Sidebar
+          routes={routes}
+          logoText={"homebase"}
+          logo={logo}
+          image={this.state.image}
+          handleDrawerToggle={this.handleDrawerToggle}
+          open={this.state.mobileOpen}
+          color={this.state.color}
+          {...rest}
+        />
+        <div className={classes.mainPanel} ref="mainPanel">
+          <Navbar
             routes={routes}
-            logoText={"homebase"}
-            logo={logo}
-            image={this.state.image}
             handleDrawerToggle={this.handleDrawerToggle}
-            open={this.state.mobileOpen}
-            color={this.state.color}
             {...rest}
           />
-          <div className={classes.mainPanel} ref="mainPanel">
-            <Navbar
-              routes={routes}
-              handleDrawerToggle={this.handleDrawerToggle}
-              {...rest}
-            />
-            {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-            {this.getRoute() ? (
-              <div className={classes.content}>
-                <div className={classes.container}>{switchRoutes}</div>
-              </div>
-            ) : (
-              <div className={classes.map}>{switchRoutes}</div>
-            )}
-            {this.getRoute() ? <Footer /> : null}
-            {/* <FixedPlugin
+          {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
+          {this.getRoute() ? (
+            <div className={classes.content}>
+              <div className={classes.container}>{switchRoutes}</div>
+            </div>
+          ) : (
+            <div className={classes.map}>{switchRoutes}</div>
+          )}
+          {this.getRoute() ? <Footer /> : null}
+          {/* <FixedPlugin
             handleImageClick={this.handleImageClick}
             handleColorClick={this.handleColorClick}
             bgColor={this.state["color"]}
@@ -135,9 +139,8 @@ class Dashboard extends React.Component {
             handleFixedClick={this.handleFixedClick}
             fixedClasses={this.state.fixedClasses}
           /> */}
-          </div>
         </div>
-      </Provider>
+      </div>
     );
   }
 }
@@ -147,4 +150,10 @@ Dashboard.propTypes = {
   store: PropTypes.object.isRequired
 };
 
-export default withStyles(dashboardStyle)(Dashboard);
+export default compose(
+  connect(
+    null,
+    { logIn, logOut }
+  ),
+  withStyles(dashboardStyle)
+)(Dashboard);

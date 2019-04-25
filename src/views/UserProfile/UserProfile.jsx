@@ -16,7 +16,6 @@ import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import CardFooter from "components/Card/CardFooter.jsx";
 import Primary from "components/Typography/Primary.jsx";
 
 import firebase from "../../reference/firebase";
@@ -59,12 +58,6 @@ const uiConfig = {
   }
 };
 class UserProfile extends Component {
-  componentDidMount() {
-    firebase.auth().onAuthStateChanged(user => {
-      !!user ? this.props.logIn() : this.props.logOut();
-    });
-  }
-
   getUserInfo = () => {
     console.log(this.props.users);
     this.props.users.forEach(item => {

@@ -35,7 +35,11 @@ export function fetchCurrentUserInfo() {
     pullFromFirebase("users", snapshot => {
       snapshot.forEach(item => {
         if (firebase.auth().currentUser.uid == item.key) {
-          curUser = item.val();
+          curUser = {
+            displayName: firebase.auth().currentUser.displayName,
+            photoURL: firebase.auth().currentUser.photoURL,
+            ...item.val()
+          };
           hasUser = true;
         }
       });
