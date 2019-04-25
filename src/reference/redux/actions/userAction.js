@@ -26,11 +26,17 @@ export function fetchUsersInfo() {
 
 export function fetchCurrentUserInfo() {
   return function(dispatch) {
-    var curUser = {};
+    var curUser = {
+      ratings: 0,
+      listings: 0,
+      rents: 0
+    };
+    var hasUser = false;
     pullFromFirebase("users", snapshot => {
       snapshot.forEach(item => {
         if (firebase.auth().currentUser.uid == item.key) {
           curUser = item.val();
+          hasUser = true;
         }
       });
       dispatch({
@@ -38,6 +44,12 @@ export function fetchCurrentUserInfo() {
         payload: curUser
       });
     });
+    if (!hasUser) {
+      firebase
+        .database()
+        .ref("users/" + firebase.auth().currentUser.uid)
+        .set(curUser);
+    }
   };
 }
 export function logIn() {
