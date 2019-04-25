@@ -185,7 +185,9 @@ class UserProfile extends Component {
                             style={{ display: "inline" }}
                             className={classes.CardHeader}
                           >
-                            {userInfo.ratings}
+                            {isNaN(userInfo.ratings)
+                              ? userInfo.ratings
+                              : userInfo.ratings.toFixed(1)}
                           </h3>
                         </GridItem>
                         <GridItem xs={12} sm={12} md={12}>
