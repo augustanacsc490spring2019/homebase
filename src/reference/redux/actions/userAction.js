@@ -39,17 +39,17 @@ export function fetchCurrentUserInfo() {
           hasUser = true;
         }
       });
+      if (!hasUser) {
+        firebase
+          .database()
+          .ref("users/" + firebase.auth().currentUser.uid)
+          .set(curUser);
+      }
       dispatch({
         type: GET_CURRENT_USER_INFO,
         payload: curUser
       });
     });
-    if (!hasUser) {
-      firebase
-        .database()
-        .ref("users/" + firebase.auth().currentUser.uid)
-        .set(curUser);
-    }
   };
 }
 export function logIn() {

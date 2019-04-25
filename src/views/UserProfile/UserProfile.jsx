@@ -104,6 +104,16 @@ class UserProfile extends Component {
           <GridContainer spacing={24}>
             <GridItem xs={12} sm={12} md={12}>
               <Card profile>
+                <GridItem xs={12} sm={12} md={12}>
+                  <Button
+                    color="danger"
+                    round
+                    onClick={() => firebase.auth().signOut()}
+                    style={{ margin: "20px", float: "right" }}
+                  >
+                    Log Out
+                  </Button>
+                </GridItem>
                 <CardAvatar profile>
                   {currentUser.photoURL ? (
                     <img
@@ -194,16 +204,6 @@ class UserProfile extends Component {
                           Ratings
                         </GridItem>
                       </GridContainer>
-                    </GridItem>
-
-                    <GridItem xs={12} sm={12} md={12}>
-                      <Button
-                        color="primary"
-                        round
-                        onClick={() => firebase.auth().signOut()}
-                      >
-                        Log Out
-                      </Button>
                     </GridItem>
                   </GridContainer>
                 </CardBody>
