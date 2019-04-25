@@ -19,9 +19,13 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import Primary from "components/Typography/Primary.jsx";
 
-import avatar from "assets/img/faces/marc.jpg";
 import firebase from "../../reference/firebase";
-import { logIn, logOut } from "../../reference/redux/actions/userAction";
+import {
+  logIn,
+  logOut,
+  fetchUsersInfo,
+  fetchCurrentUserInfo
+} from "../../reference/redux/actions/userAction";
 import { StyledFirebaseAuth } from "react-firebaseui";
 import { Divider } from "@material-ui/core";
 
@@ -61,18 +65,32 @@ class UserProfile extends Component {
     });
   }
 
-  componentWillReceiveProps(prevProps, nextProps) {
-    if (nextProps.isSignedIn !== prevProps.isSignedIn) {
-      // this.props.isSignedIn = nextProps.isSignedIn;
+  getUserInfo = () => {
+    console.log(this.props.users);
+    this.props.users.forEach(item => {
+      console.log(
+        item.id + " <- item, curUser -> " + firebase.auth().currentUser.uid
+      );
+      if (item.id == firebase.auth().currentUser.uid) {
+        this.setState({ userInfo: item });
+      }
+    });
+  };
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isSignedIn && this.props.isSignedIn != nextProps.isSignedIn) {
+      this.props.fetchUsersInfo();
+      this.props.fetchCurrentUserInfo();
     }
   }
 
   render() {
     const { classes } = this.props;
     const currentUser = firebase.auth().currentUser;
+    const userInfo = this.props.curUser;
     return (
       <div>
-        {!this.props.signInState.isSignedIn ? (
+        {!this.props.isSignedIn ? (
           <div>
             <Primary>
               You are not signed in. Please sign in to join the market!
@@ -105,12 +123,12 @@ class UserProfile extends Component {
                   </GridItem>
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
-                      <h1
-                        className={classes.cardTitle}
+                      <h3
+                        className={classes.CardBody}
                         style={{ fontWeight: "bold" }}
                       >
                         {currentUser.displayName}
-                      </h1>
+                      </h3>
                     </GridItem>
                     <GridItem xs={12} sm={12} md={12}>
                       <GridContainer
@@ -135,7 +153,7 @@ class UserProfile extends Component {
                             style={{ display: "inline" }}
                             className={classes.CardHeader}
                           >
-                            0
+                            {userInfo.listings}
                           </h3>
                         </GridItem>
                         <GridItem xs={12} sm={12} md={12}>
@@ -151,11 +169,11 @@ class UserProfile extends Component {
                             style={{ display: "inline" }}
                             className={classes.CardHeader}
                           >
-                            0
+                            {userInfo.rents}
                           </h3>
                         </GridItem>
                         <GridItem xs={12} sm={12} md={12}>
-                          Listings
+                          Rents
                         </GridItem>
                       </GridContainer>
                     </GridItem>
@@ -167,11 +185,11 @@ class UserProfile extends Component {
                             style={{ display: "inline" }}
                             className={classes.CardHeader}
                           >
-                            0
+                            {userInfo.ratings}
                           </h3>
                         </GridItem>
                         <GridItem xs={12} sm={12} md={12}>
-                          Listings
+                          Ratings
                         </GridItem>
                       </GridContainer>
                     </GridItem>
@@ -199,17 +217,21 @@ class UserProfile extends Component {
 UserProfile.propTypes = {
   logIn: PropTypes.func.isRequired,
   logOut: PropTypes.func.isRequired,
-  signInState: PropTypes.object.isRequired
+  isSignedIn: PropTypes.bool.isRequired,
+  users: PropTypes.array.isRequired,
+  curUser: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  signInState: state.signInState
+  isSignedIn: state.signInState.isSignedIn,
+  users: state.usersState.users,
+  curUser: state.usersState.curUser
 });
 
 export default compose(
   connect(
     mapStateToProps,
-    { logIn, logOut }
+    { logIn, logOut, fetchUsersInfo, fetchCurrentUserInfo }
   ),
   withStyles(styles)
 )(UserProfile);
