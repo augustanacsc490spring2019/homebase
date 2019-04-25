@@ -58,6 +58,7 @@ function CustomInput({ ...props }) {
         }}
         id={id}
         {...inputProps}
+        required
       />
       {error ? (
         <Clear className={classes.feedback + " " + classes.labelRootError} />

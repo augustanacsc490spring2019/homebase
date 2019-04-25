@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
+import Divider from "@material-ui/core/Divider";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
@@ -35,6 +36,7 @@ class PropertyItem extends React.Component {
                 title={this.props.address}
                 style={this.props.styles.media}
               />
+              <Divider variant="middle" />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
                   {this.props.address}
