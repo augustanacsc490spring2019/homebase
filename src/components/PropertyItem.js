@@ -7,17 +7,23 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import MoneyIcon from "@material-ui/icons/AttachMoney";
+import DescriptionIcon from "@material-ui/icons/Description";
+import grey from "@material-ui/core/colors/grey";
 
 class PropertyItem extends React.Component {
   render() {
     return (
       <GridItem xs={12} sm={6} md={3} style={{ margin: "1em 0" }}>
-        <Link to={{
-          pathname:`/listing/${this.props.id}`,
-          state:{
-            info: this.props.info
-          }
-          }}>
+        <Link
+          to={{
+            pathname: `/listing/${this.props.id}`,
+            state: {
+              info: this.props.info
+            }
+          }}
+        >
           <Card className={this.props.classes.card}>
             <CardActionArea>
               <CardMedia
@@ -25,7 +31,7 @@ class PropertyItem extends React.Component {
                 className={this.props.classes.media}
                 height="100%"
                 width="100%"
-                image={require(`../assets/${this.props.imagePath}`)}
+                image={this.props.imagePath}
                 title={this.props.address}
                 style={this.props.styles.media}
               />
@@ -33,7 +39,20 @@ class PropertyItem extends React.Component {
                 <Typography gutterBottom variant="h5" component="h2">
                   {this.props.address}
                 </Typography>
-                <Typography component="p">{this.props.description}</Typography>
+                <Typography component="p">
+                  <DescriptionIcon color="primary" />
+                  {this.props.description}
+                </Typography>
+
+                <Typography component="p">
+                  <MoneyIcon color="primary" />
+                  {this.props.price}
+                </Typography>
+
+                <Typography component="p">
+                  <MeetingRoomIcon color="primary" />
+                  {this.props.rooms}
+                </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
