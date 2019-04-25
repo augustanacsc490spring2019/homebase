@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PersonIcon from "@material-ui/icons/Person";
 import EmailIcon from "@material-ui/icons/Email";
+import EditIcon from "@material-ui/icons/Edit";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -96,6 +97,12 @@ class UserProfile extends Component {
                   )}
                 </CardAvatar>
                 <CardBody profile>
+                  <GridItem xs={12} sm={12} md={12}>
+                    <Button color="primary" round>
+                      <EditIcon />
+                      Edit Profile
+                    </Button>
+                  </GridItem>
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={12}>
                       <h1
