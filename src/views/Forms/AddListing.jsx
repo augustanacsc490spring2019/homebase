@@ -6,6 +6,7 @@ import Button from "../../components/CustomButtons/Button.jsx";
 import { pushToFirebase } from "../../reference/firebase/index";
 import { Snackbar, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import FileUploader from "react-firebase-file-uploader";
 import firebase from "../../reference/firebase";
 
 const defaultState = {
@@ -16,13 +17,19 @@ const defaultState = {
   type: "",
   status: "",
   rooms: "",
+  pic: "",
   owner: {}
 };
 
 class AddListing extends Component {
   constructor(props) {
     super(props);
-    this.state = { ...defaultState, snackbarOpen: false };
+    this.state = {
+      ...defaultState,
+      snackbarOpen: false,
+      progress: 0,
+      isUploading: false
+    };
   }
 
   inputChange = e => {
@@ -44,7 +51,8 @@ class AddListing extends Component {
   submitForm = e => {
     e.preventDefault();
     const currentUser = firebase.auth().currentUser;
-    const { snackbarOpen, ...curState } = this.state;
+    // excluding other state elements
+    const { snackbarOpen, process, isUploading, ...curState } = this.state;
     pushToFirebase("listings", {
       ...curState,
       owner: {
@@ -56,7 +64,22 @@ class AddListing extends Component {
     });
     this.setState({ ...defaultState, snackbarOpen: true });
   };
-
+  // https://www.npmjs.com/package/react-firebase-file-uploader
+  handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
+  handleProgress = progress => this.setState({ progress });
+  handleUploadError = error => {
+    this.setState({ isUploading: false });
+    console.error(error);
+  };
+  handleUploadSuccess = filename => {
+    this.setState({ progress: 100, isUploading: false });
+    firebase
+      .storage()
+      .ref("images")
+      .child(filename)
+      .getDownloadURL()
+      .then(url => this.setState({ pic: url }));
+  };
   // https://material-ui.com/demos/snackbars/
   snackBar = () => {
     return (
@@ -94,6 +117,21 @@ class AddListing extends Component {
         ) : (
           <form onSubmit={this.submitForm} autoComplete="off">
             {this.snackBar()}
+            {/* https://www.npmjs.com/package/react-firebase-file-uploader */}
+            <Button color="primary">
+              Upload an image for your listing
+              <FileUploader
+                hidden
+                accept="image/*"
+                name="listing"
+                randomizeFilename
+                storageRef={firebase.storage().ref("images")}
+                onUploadStart={this.handleUploadStart}
+                onUploadError={this.handleUploadError}
+                onUploadSuccess={this.handleUploadSuccess}
+                onProgress={this.handleProgress}
+              />
+            </Button>
             <CustomInput
               labelText="Name"
               id="name"
