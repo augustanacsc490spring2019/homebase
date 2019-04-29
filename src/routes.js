@@ -74,7 +74,7 @@ const dashboardRoutes = [
     icon: LocationOn,
     component: Maps,
     layout: "/admin",
-    display: false
+    display: true
   },
   {
     path: "/notifications",

@@ -4,6 +4,9 @@ import { connect } from "react-redux";
 import CustomInput from "../../components/CustomInput/CustomInput.jsx";
 import Button from "../../components/CustomButtons/Button.jsx";
 import { pushToFirebase } from "../../reference/firebase/index";
+import { Snackbar, IconButton } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import firebase from "../../reference/firebase";
 
 const defaultState = {
   name: "",
@@ -12,13 +15,14 @@ const defaultState = {
   price: "",
   type: "",
   status: "",
-  rooms: ""
+  rooms: "",
+  owner: {}
 };
 
 class AddListing extends Component {
   constructor(props) {
     super(props);
-    this.state = defaultState;
+    this.state = { ...defaultState, snackbarOpen: false };
   }
 
   inputChange = e => {
@@ -29,10 +33,57 @@ class AddListing extends Component {
     });
   };
 
+  handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    this.setState({ snackbarOpen: false });
+  };
+
   submitForm = e => {
     e.preventDefault();
-    pushToFirebase("listings", this.state);
-    this.setState({ ...defaultState });
+    const currentUser = firebase.auth().currentUser;
+    const { snackbarOpen, ...curState } = this.state;
+    pushToFirebase("listings", {
+      ...curState,
+      owner: {
+        displayName: currentUser.displayName,
+        email: currentUser.email,
+        photoURL: currentUser.photoURL,
+        uid: currentUser.uid
+      }
+    });
+    this.setState({ ...defaultState, snackbarOpen: true });
+  };
+
+  // https://material-ui.com/demos/snackbars/
+  snackBar = () => {
+    return (
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right"
+        }}
+        open={this.state.snackbarOpen}
+        autoHideDuration={6000}
+        onClose={this.handleClose}
+        ContentProps={{
+          "aria-describedby": "message-id"
+        }}
+        message={<span id="message-id">Listing created!</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="Close"
+            color="inherit"
+            onClick={this.handleClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
+      />
+    );
   };
 
   render() {
@@ -42,6 +93,7 @@ class AddListing extends Component {
           <h2>Please sign in!</h2>
         ) : (
           <form onSubmit={this.submitForm} autoComplete="off">
+            {this.snackBar()}
             <CustomInput
               labelText="Name"
               id="name"
@@ -107,6 +159,18 @@ class AddListing extends Component {
                 onChange: this.inputChange,
                 value: this.state.rooms
               }}
+            />
+            <CustomInput
+              labelText="Photo"
+              id="photo"
+              formControlProps={{
+                fullWidth: true
+              }}
+              inputProps={{
+                onChange: this.inputChange,
+                value: this.state.photo
+              }}
+              type="file"
             />
             <Button color="primary" type="submit">
               Add Property
