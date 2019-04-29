@@ -11,7 +11,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import MoneyIcon from "@material-ui/icons/AttachMoney";
 import DescriptionIcon from "@material-ui/icons/Description";
-import grey from "@material-ui/core/colors/grey";
+import placeholderImg from "../assets/img/placeholderImg.jpg";
 
 class PropertyItem extends React.Component {
   render() {
@@ -32,7 +32,9 @@ class PropertyItem extends React.Component {
                 className={this.props.classes.media}
                 height="100%"
                 width="100%"
-                image={this.props.imagePath}
+                image={
+                  this.props.imagePath ? this.props.imagePath : placeholderImg
+                }
                 title={this.props.address}
                 style={this.props.styles.media}
               />

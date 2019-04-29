@@ -7,9 +7,9 @@ import { pushToFirebase } from "../../reference/firebase/index";
 import { Snackbar, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
-import ImageIcon from "@material-ui/icons/Image";
 import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
 import firebase from "../../reference/firebase";
+import placeholderImg from "../../assets/img/placeholderImg.jpg";
 
 const defaultState = {
   name: "",
@@ -129,7 +129,11 @@ class AddListing extends Component {
             ) : this.state.isUploading ? (
               `Loading...`
             ) : (
-              <ImageIcon />
+              <img
+                style={{ width: "20%", height: "auto" }}
+                src={placeholderImg}
+                alt={`${firebase.auth().currentUser.displayName} listing image`}
+              />
             )}
             <Button
               color="primary"
