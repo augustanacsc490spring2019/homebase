@@ -6,7 +6,9 @@ import Button from "../../components/CustomButtons/Button.jsx";
 import { pushToFirebase } from "../../reference/firebase/index";
 import { Snackbar, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import FileUploader from "react-firebase-file-uploader";
+import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
+import ImageIcon from "@material-ui/icons/Image";
+import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
 import firebase from "../../reference/firebase";
 
 const defaultState = {
@@ -66,7 +68,7 @@ class AddListing extends Component {
   };
   // https://www.npmjs.com/package/react-firebase-file-uploader
   handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
-  handleProgress = progress => this.setState({ progress });
+  handleProgress = progress => this.setState({ progress: progress });
   handleUploadError = error => {
     this.setState({ isUploading: false });
     console.error(error);
@@ -118,19 +120,31 @@ class AddListing extends Component {
           <form onSubmit={this.submitForm} autoComplete="off">
             {this.snackBar()}
             {/* https://www.npmjs.com/package/react-firebase-file-uploader */}
-            <Button color="primary">
-              Upload an image for your listing
-              <FileUploader
-                hidden
-                accept="image/*"
-                name="listing"
-                randomizeFilename
-                storageRef={firebase.storage().ref("images")}
-                onUploadStart={this.handleUploadStart}
-                onUploadError={this.handleUploadError}
-                onUploadSuccess={this.handleUploadSuccess}
-                onProgress={this.handleProgress}
+            {this.state.pic ? (
+              <img
+                style={{ width: "20%", height: "auto" }}
+                src={this.state.pic}
+                alt={`${firebase.auth().currentUser.displayName} listing image`}
               />
+            ) : this.state.isUploading ? (
+              `Loading...`
+            ) : (
+              <ImageIcon />
+            )}
+            <Button
+              color="primary"
+              component={CustomUploadButton}
+              hidden
+              accept="image/*"
+              name="listing"
+              randomizeFilename
+              storageRef={firebase.storage().ref("images")}
+              onUploadStart={this.handleUploadStart}
+              onUploadError={this.handleUploadError}
+              onUploadSuccess={this.handleUploadSuccess}
+              onProgress={this.handleProgress}
+            >
+              <AddPhotoAlternateIcon />
             </Button>
             <CustomInput
               labelText="Name"
@@ -197,18 +211,6 @@ class AddListing extends Component {
                 onChange: this.inputChange,
                 value: this.state.rooms
               }}
-            />
-            <CustomInput
-              labelText="Photo"
-              id="photo"
-              formControlProps={{
-                fullWidth: true
-              }}
-              inputProps={{
-                onChange: this.inputChange,
-                value: this.state.photo
-              }}
-              type="file"
             />
             <Button color="primary" type="submit">
               Add Property
