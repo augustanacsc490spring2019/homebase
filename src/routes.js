@@ -17,7 +17,7 @@ import PropertiesPage from "views/Properties/Properties.jsx";
 import FirebaseTest from "views/FirebaseTest/FirebaseTest.jsx";
 // core components/views for RTL layout
 // import RTLPage from "views/RTLPage/RTLPage.jsx";
-import PropertyItem from "./components/PropertyItem";
+// import PropertyItem from "./components/PropertyItem";
 
 const dashboardRoutes = [
   {

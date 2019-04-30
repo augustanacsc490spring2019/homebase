@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {pullFromFirebase} from '../reference/firebase';
 
 export default class PropertyInfo extends Component {
     constructor(props){

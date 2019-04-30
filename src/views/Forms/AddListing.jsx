@@ -124,7 +124,7 @@ class AddListing extends Component {
               <img
                 style={{ width: "20%", height: "auto" }}
                 src={this.state.pic}
-                alt={`${firebase.auth().currentUser.displayName} listing image`}
+                alt={`${firebase.auth().currentUser.displayName} listing`}
               />
             ) : this.state.isUploading ? (
               `Loading...`
@@ -132,7 +132,7 @@ class AddListing extends Component {
               <img
                 style={{ width: "20%", height: "auto" }}
                 src={placeholderImg}
-                alt={`${firebase.auth().currentUser.displayName} listing image`}
+                alt={`${firebase.auth().currentUser.displayName} listing`}
               />
             )}
             <Button
