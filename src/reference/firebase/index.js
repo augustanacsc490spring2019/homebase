@@ -1,5 +1,7 @@
 import firebase from "firebase";
 import "firebase/database";
+import "firebase/auth";
+import "firebase/storage";
 
 // Initialize Firebase
 var config = {
