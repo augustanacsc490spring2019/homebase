@@ -10,6 +10,7 @@ export default class PropertyInfo extends Component {
   render() {
     return (
       <div>
+        <h1>Test</h1>
         <h1>{this.state.name}</h1>
         <h2>{this.state.desc}</h2>
         <p><strong>Status: </strong>{this.state.status}</p>

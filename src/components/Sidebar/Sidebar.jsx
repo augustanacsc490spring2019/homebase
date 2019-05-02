@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import { NavLink, Link } from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -12,7 +11,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.jsx";
-import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.jsx";
 
 import sidebarStyle from "assets/jss/material-dashboard-react/components/sidebarStyle.jsx";
 
@@ -110,7 +108,7 @@ const Sidebar = ({ ...props }) => {
         >
           {brand}
           <div className={classes.sidebarWrapper}>
-            {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
+            <AdminNavbarLinks />
             {links}
           </div>
           {image !== undefined ? (
@@ -146,8 +144,5 @@ const Sidebar = ({ ...props }) => {
   );
 };
 
-Sidebar.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(sidebarStyle)(Sidebar);

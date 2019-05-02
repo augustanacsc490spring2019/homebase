@@ -14,7 +14,6 @@ import "assets/css/material-dashboard-react.css?v=1.6.0";
 const hist = createBrowserHistory({
   basename: process.env.PUBLIC_URL
 });
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={hist}>
