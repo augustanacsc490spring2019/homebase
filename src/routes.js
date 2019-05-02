@@ -40,7 +40,8 @@ const dashboardRoutes = [
     path: "/user",
     name: "User Profile",
     icon: Person,
-    component: UserProfile.wrappedComponent,
+    component: UserProfile,
+    // component: UserProfile.wrappedComponent,
     layout: "/admin",
     display: true
   },
@@ -88,7 +89,8 @@ const dashboardRoutes = [
     path: "/listings/add",
     name: "Add Listing",
     icon: Notifications,
-    component: AddListing.wrappedComponent,
+    component: AddListing,
+    // component: AddListing.wrappedComponent,
     layout: "/admin",
     display: true
   },

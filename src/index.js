@@ -19,8 +19,10 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hist}>
       <Switch>
-        <Route path="/admin" component={Admin.WrappedComponent} />
-        <Route path="/listing/:id" component={PropertyInfo.WrappedComponent} />
+        <Route path="/admin" component={Admin} />
+        <Route path="/listing/:id" component={PropertyInfo} />
+        {/* <Route path="/admin" component={Admin.WrappedComponent} />
+        <Route path="/listing/:id" component={PropertyInfo.WrappedComponent} /> */}
         <Redirect from="/" to="/admin/properties" />
       </Switch>
     </Router>
