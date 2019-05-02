@@ -26,7 +26,7 @@ const Sidebar = ({ ...props }) => {
     <List className={classes.list}>
       {routes.map((prop, key) => {
         if (!prop.display) {
-          return '';
+          return "";
         }
         var activePro = " ";
         var listItemClasses;
@@ -75,19 +75,22 @@ const Sidebar = ({ ...props }) => {
   );
   var brand = (
     <div className={classes.logo}>
-      <Link to="/"
+      <Link
+        to="/"
         className={classNames(classes.logoLink, {
           [classes.logoLinkRTL]: props.rtlActive
         })}
       >
         <div className={classes.logoImage}>
           <img
-            src={require("../../assets/img/homebaselogo.png")}
+            src={require("../../assets/img/homebase2.png")}
             alt="logo"
-            className={classes.img}
+            style={{
+              width: 200,
+              height: 55
+            }}
           />
         </div>
-        {logoText}
       </Link>
     </div>
   );

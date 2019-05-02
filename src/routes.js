@@ -22,7 +22,7 @@ import PropertiesPage from "views/Properties/Properties.jsx";
 const dashboardRoutes = [
   {
     path: "/dashboard",
-    name: "Dashboard",
+    name: "Landing",
     icon: Dashboard,
     component: DashboardPage,
     layout: "/admin",
