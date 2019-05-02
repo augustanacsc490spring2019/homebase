@@ -21,13 +21,14 @@ import PropertiesPage from "views/Properties/Properties.jsx";
 
 const dashboardRoutes = [
   {
-    path: "/properties",
-    name: "Properties",
+    path: "/dashboard",
+    name: "Dashboard",
     icon: Dashboard,
-    component: PropertiesPage,
+    component: DashboardPage,
     layout: "/admin",
     display: true
   },
+<<<<<<< HEAD
   // {
   //   path: "/dashboard",
   //   name: "Dashboard",
@@ -36,12 +37,21 @@ const dashboardRoutes = [
   //   layout: "/admin",
   //   display: false
   // },
+=======
+  {
+    path: "/properties",
+    name: "Properties",
+    icon: Dashboard,
+    component: PropertiesPage,
+    layout: "/admin",
+    display: true
+  },
+>>>>>>> 54f832b83884bf6e792e3cf07889963494f64476
   {
     path: "/user",
     name: "User Profile",
     icon: Person,
     component: UserProfile,
-    // component: UserProfile.wrappedComponent,
     layout: "/admin",
     display: true
   },
@@ -69,14 +79,14 @@ const dashboardRoutes = [
     layout: "/admin",
     display: false
   },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: LocationOn,
-    component: Maps,
-    layout: "/admin",
-    display: true
-  },
+  // {
+  //   path: "/maps",
+  //   name: "Maps",
+  //   icon: LocationOn,
+  //   component: Maps,
+  //   layout: "/admin",
+  //   display: true
+  // },
   {
     path: "/notifications",
     name: "Notifications",
@@ -90,10 +100,9 @@ const dashboardRoutes = [
     name: "Add Listing",
     icon: Notifications,
     component: AddListing,
-    // component: AddListing.wrappedComponent,
     layout: "/admin",
     display: true
-  },
+  }
   // {
   //   path: "/firebasetest",
   //   name: "FirebaseTest",

@@ -10,10 +10,8 @@ import EditIcon from "@material-ui/icons/Edit";
 // core components
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-// import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
-// import CardHeader from "components/Card/CardHeader.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import Primary from "components/Typography/Primary.jsx";
@@ -26,7 +24,6 @@ import {
   fetchCurrentUserInfo
 } from "../../reference/redux/actions/userAction";
 import { StyledFirebaseAuth } from "react-firebaseui";
-// import { Divider } from "@material-ui/core";
 
 const styles = {
   cardCategoryWhite: {
@@ -71,7 +68,10 @@ class UserProfile extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.isSignedIn && this.props.isSignedIn !== nextProps.isSignedIn) {
+    if (
+      nextProps.isSignedIn &&
+      this.props.isSignedIn !== nextProps.isSignedIn
+    ) {
       this.props.fetchUsersInfo();
       this.props.fetchCurrentUserInfo();
     }
