@@ -7,6 +7,7 @@ import store from "./reference/redux/store.jsx";
 
 // core components
 import Admin from "layouts/Admin.jsx";
+import Dashboard from "./views/Dashboard/Dashboard";
 import PropertyInfo from "./components/PropertyInfo";
 
 import "assets/css/material-dashboard-react.css?v=1.6.0";
@@ -20,7 +21,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/admin" component={Admin} />
         <Route path="/listing/:id" component={PropertyInfo} />
-        <Redirect from="/" to="/admin/dashboard" />
+        <Redirect from="/" to="/admin/dashboard" component={Dashboard} />
       </Switch>
     </Router>
   </Provider>,
