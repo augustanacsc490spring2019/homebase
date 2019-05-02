@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -145,10 +145,6 @@ class Dashboard extends React.Component {
   }
 }
 
-Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  store: PropTypes.object.isRequired
-};
 
 export default compose(
   connect(

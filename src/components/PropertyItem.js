@@ -35,6 +35,26 @@ class PropertyItem extends React.Component {
                 <Typography gutterBottom variant="h5" component="h2">
                   {this.props.address}
                 </Typography>
+                  <GridContainer justify="flex-start" alignItems="center">
+                  <Typography component="p" style={{ margin: "1em" }}>
+                      <DescriptionIcon color="primary" />
+                      {this.props.description}
+                    </Typography>
+                  </GridContainer>
+
+                  <GridContainer justify="flex-start" alignItems="center">
+                <Typography component="p" style={{ margin: "1em" }}>
+                    <MoneyIcon color="primary" />
+                    {this.props.price}
+                </Typography>
+                  </GridContainer>
+
+                  <GridContainer justify="flex-start" alignItems="center">
+                <Typography component="p" style={{ margin: "1em" }}>
+                    <MeetingRoomIcon color="primary" />
+                    {this.props.rooms}
+                </Typography>
+                  </GridContainer>
                 <Typography component="p">{this.props.description}</Typography>
               </CardContent>
             </CardActionArea>
