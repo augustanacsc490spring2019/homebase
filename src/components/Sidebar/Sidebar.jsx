@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import { NavLink, Link } from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -12,7 +11,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
 // core components
 import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.jsx";
-import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.jsx";
 
 import sidebarStyle from "assets/jss/material-dashboard-react/components/sidebarStyle.jsx";
 
@@ -26,7 +24,7 @@ const Sidebar = ({ ...props }) => {
     <List className={classes.list}>
       {routes.map((prop, key) => {
         if (!prop.display) {
-          return '';
+          return "";
         }
         var activePro = " ";
         var listItemClasses;
@@ -75,19 +73,22 @@ const Sidebar = ({ ...props }) => {
   );
   var brand = (
     <div className={classes.logo}>
-      <Link to="/"
+      <Link
+        to="/"
         className={classNames(classes.logoLink, {
           [classes.logoLinkRTL]: props.rtlActive
         })}
       >
         <div className={classes.logoImage}>
           <img
-            src={require("../../assets/img/homebaselogo.png")}
+            src={require("../../assets/img/homebase2.png")}
             alt="logo"
-            className={classes.img}
+            style={{
+              width: 200,
+              height: 55
+            }}
           />
         </div>
-        {logoText}
       </Link>
     </div>
   );
@@ -110,7 +111,7 @@ const Sidebar = ({ ...props }) => {
         >
           {brand}
           <div className={classes.sidebarWrapper}>
-            {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
+            <AdminNavbarLinks />
             {links}
           </div>
           {image !== undefined ? (
@@ -146,8 +147,5 @@ const Sidebar = ({ ...props }) => {
   );
 };
 
-Sidebar.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(sidebarStyle)(Sidebar);
