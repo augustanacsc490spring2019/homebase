@@ -10,7 +10,7 @@ import Button from "../../components/CustomButtons/Button.jsx";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
 import { pushToFirebase } from "../../reference/firebase/index";
-import { Snackbar, IconButton, Input, Typography } from "@material-ui/core";
+import { Snackbar, IconButton, Typography } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import ClearIcon from "@material-ui/icons/Clear";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";

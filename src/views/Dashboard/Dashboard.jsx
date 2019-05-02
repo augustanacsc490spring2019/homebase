@@ -2,24 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 // @material-ui/core
 import withStyles from "@material-ui/core/styles/withStyles";
-import Icon from "@material-ui/core/Icon";
+// import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 // core components
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
+// import GridItem from "components/Grid/GridItem.jsx";
+// import GridContainer from "components/Grid/GridContainer.jsx";
 import Search from "@material-ui/icons/Search";
 import Location from "@material-ui/icons/LocationOn";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Typography from "@material-ui/core/Typography";
 
-import { bugs, website, server } from "variables/general.jsx";
+// import { bugs, website, server } from "variables/general.jsx";
 
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart
-} from "variables/charts.jsx";
+// import {
+//   dailySalesChart,
+//   emailsSubscriptionChart,
+//   completedTasksChart
+// } from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
