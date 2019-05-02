@@ -28,16 +28,6 @@ const dashboardRoutes = [
     layout: "/admin",
     display: true
   },
-<<<<<<< HEAD
-  // {
-  //   path: "/dashboard",
-  //   name: "Dashboard",
-  //   icon: Dashboard,
-  //   component: DashboardPage,
-  //   layout: "/admin",
-  //   display: false
-  // },
-=======
   {
     path: "/properties",
     name: "Properties",
@@ -46,7 +36,6 @@ const dashboardRoutes = [
     layout: "/admin",
     display: true
   },
->>>>>>> 54f832b83884bf6e792e3cf07889963494f64476
   {
     path: "/user",
     name: "User Profile",

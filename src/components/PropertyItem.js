@@ -35,7 +35,6 @@ class PropertyItem extends React.Component {
                 <Typography gutterBottom variant="h5" component="h2">
                   {this.props.address}
                 </Typography>
-<<<<<<< HEAD
                   <GridContainer justify="flex-start" alignItems="center">
                   <Typography component="p" style={{ margin: "1em" }}>
                       <DescriptionIcon color="primary" />
@@ -56,9 +55,7 @@ class PropertyItem extends React.Component {
                     {this.props.rooms}
                 </Typography>
                   </GridContainer>
-=======
                 <Typography component="p">{this.props.description}</Typography>
->>>>>>> 54f832b83884bf6e792e3cf07889963494f64476
               </CardContent>
             </CardActionArea>
           </Card>
