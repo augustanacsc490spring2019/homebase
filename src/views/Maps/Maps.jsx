@@ -5,7 +5,7 @@ import {
   GoogleMap,
   Marker
 } from "react-google-maps";
-const googleMapsApiKey = process.env.REACT_APP_MAP_API_KEY;
+const googleMapsApiKey = "";
 
 const CustomSkinMap = withScriptjs(
   withGoogleMap(props => (

@@ -1,13 +1,18 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { Route } from "react-router-dom";
+import PropertiesPage from "../../views/Properties/Properties";
+
 import CustomInput from "../../components/CustomInput/CustomInput.jsx";
 import Button from "../../components/CustomButtons/Button.jsx";
 import { pushToFirebase } from "../../reference/firebase/index";
-import { Snackbar, IconButton } from "@material-ui/core";
+import { Snackbar, IconButton, Input } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
+import { Map, GoogleApiWrapper } from "google-maps-react";
 import firebase from "../../reference/firebase";
 import placeholderImg from "../../assets/img/placeholderImg.jpg";
 
@@ -65,7 +70,24 @@ class AddListing extends Component {
       }
     });
     this.setState({ ...defaultState, snackbarOpen: true });
+    return <Route path={"/admin/properties"} component={PropertiesPage} />;
   };
+
+  initAutocomplete = mapProps => {
+    const { google } = mapProps;
+    this.autoComplete = new google.maps.places.Autocomplete(
+      document.getElementById("autoComplete")
+    );
+    this.autoComplete.setFields(["geometry"]);
+    this.autoComplete.addListener("place_changed", () => {
+      const place = this.autoComplete.getPlace();
+      if (place.geometry) {
+        // TODO: change the state accordingly
+        console.log(place.geometry.location);
+      }
+    });
+  };
+
   // https://www.npmjs.com/package/react-firebase-file-uploader
   handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
   handleProgress = progress => this.setState({ progress: progress });
@@ -112,6 +134,7 @@ class AddListing extends Component {
   };
 
   render() {
+    console.log(process.env.REACT_APP_MAP_API_KEY);
     return (
       <div>
         {!this.props.isSignedIn ? (
@@ -160,6 +183,17 @@ class AddListing extends Component {
                 onChange: this.inputChange,
                 value: this.state.name
               }}
+            />
+            <Input placeholder="Address" type="text" id="autoComplete" />
+            <Map
+              google={this.props.google}
+              initialCenter={{
+                lat: 41.503152,
+                lng: -90.550617
+              }}
+              onClick={this.props.google}
+              zoom={14}
+              onReady={this.initAutocomplete}
             />
             <CustomInput
               labelText="Description"
@@ -233,4 +267,10 @@ AddListing.propTypes = {
 const mapStateToProps = state => ({
   isSignedIn: state.signInState.isSignedIn
 });
-export default connect(mapStateToProps)(AddListing);
+
+export default compose(
+  GoogleApiWrapper({
+    apiKey: process.env.REACT_APP_MAP_API_KEY
+  }),
+  connect(mapStateToProps)
+)(AddListing);

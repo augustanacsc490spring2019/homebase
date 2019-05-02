@@ -41,7 +41,6 @@ const dashboardRoutes = [
     name: "User Profile",
     icon: Person,
     component: UserProfile,
-    // component: UserProfile.wrappedComponent,
     layout: "/admin",
     display: true
   },
@@ -69,14 +68,14 @@ const dashboardRoutes = [
     layout: "/admin",
     display: false
   },
-  {
-    path: "/maps",
-    name: "Maps",
-    icon: LocationOn,
-    component: Maps,
-    layout: "/admin",
-    display: true
-  },
+  // {
+  //   path: "/maps",
+  //   name: "Maps",
+  //   icon: LocationOn,
+  //   component: Maps,
+  //   layout: "/admin",
+  //   display: true
+  // },
   {
     path: "/notifications",
     name: "Notifications",
@@ -90,10 +89,9 @@ const dashboardRoutes = [
     name: "Add Listing",
     icon: Notifications,
     component: AddListing,
-    // component: AddListing.wrappedComponent,
     layout: "/admin",
     display: true
-  },
+  }
   // {
   //   path: "/firebasetest",
   //   name: "FirebaseTest",
