@@ -7,9 +7,12 @@ import PropertiesPage from "../../views/Properties/Properties";
 
 import CustomInput from "../../components/CustomInput/CustomInput.jsx";
 import Button from "../../components/CustomButtons/Button.jsx";
+import GridContainer from "../../components/Grid/GridContainer";
+import GridItem from "../../components/Grid/GridItem";
 import { pushToFirebase } from "../../reference/firebase/index";
-import { Snackbar, IconButton, Input } from "@material-ui/core";
+import { Snackbar, IconButton, Input, Typography } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import ClearIcon from "@material-ui/icons/Clear";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
 import { Map, GoogleApiWrapper } from "google-maps-react";
@@ -18,6 +21,7 @@ import placeholderImg from "../../assets/img/placeholderImg.jpg";
 
 const defaultState = {
   name: "",
+  address: "",
   desc: "",
   rules: "",
   price: "",
@@ -73,17 +77,24 @@ class AddListing extends Component {
     return <Route path={"/admin/properties"} component={PropertiesPage} />;
   };
 
+  clearForm = e => {
+    this.setState({ ...defaultState, snackbarOpen: false });
+  };
+
   initAutocomplete = mapProps => {
     const { google } = mapProps;
     this.autoComplete = new google.maps.places.Autocomplete(
-      document.getElementById("autoComplete")
+      document.getElementById("address")
     );
-    this.autoComplete.setFields(["geometry"]);
+    this.autoComplete.setFields(["geometry", "formatted_address"]);
     this.autoComplete.addListener("place_changed", () => {
       const place = this.autoComplete.getPlace();
+      this.setState({
+        address: place.formatted_address
+      });
+      document.getElementById("address").value = place.formatted_address;
       if (place.geometry) {
         // TODO: change the state accordingly
-        console.log(place.geometry.location);
       }
     });
   };
@@ -104,6 +115,7 @@ class AddListing extends Component {
       .getDownloadURL()
       .then(url => this.setState({ pic: url }));
   };
+
   // https://material-ui.com/demos/snackbars/
   snackBar = () => {
     return (
@@ -134,45 +146,64 @@ class AddListing extends Component {
   };
 
   render() {
-    console.log(process.env.REACT_APP_MAP_API_KEY);
     return (
       <div>
         {!this.props.isSignedIn ? (
           <h2>Please sign in!</h2>
         ) : (
           <form onSubmit={this.submitForm} autoComplete="off">
+            <Map
+              google={this.props.google}
+              onClick={this.props.google}
+              visible={false}
+              onReady={this.initAutocomplete}
+            />
+
             {this.snackBar()}
+            <br />
+            <Typography variant="h5">Listing Image</Typography>
             {/* https://www.npmjs.com/package/react-firebase-file-uploader */}
-            {this.state.pic ? (
-              <img
-                style={{ width: "20%", height: "auto" }}
-                src={this.state.pic}
-                alt={`${firebase.auth().currentUser.displayName} listing`}
-              />
-            ) : this.state.isUploading ? (
-              `Loading...`
-            ) : (
-              <img
-                style={{ width: "20%", height: "auto" }}
-                src={placeholderImg}
-                alt={`${firebase.auth().currentUser.displayName} listing`}
-              />
-            )}
-            <Button
-              color="primary"
-              component={CustomUploadButton}
-              hidden
-              accept="image/*"
-              name="listing"
-              randomizeFilename
-              storageRef={firebase.storage().ref("images")}
-              onUploadStart={this.handleUploadStart}
-              onUploadError={this.handleUploadError}
-              onUploadSuccess={this.handleUploadSuccess}
-              onProgress={this.handleProgress}
+
+            <GridContainer
+              spacing={24}
+              alignItems="center"
+              justify="flex-start"
             >
-              <AddPhotoAlternateIcon />
-            </Button>
+              <GridItem xs={6}>
+                {this.state.pic ? (
+                  <img
+                    style={{ width: "50%", height: "auto" }}
+                    src={this.state.pic}
+                    alt={`${firebase.auth().currentUser.displayName} listing`}
+                  />
+                ) : this.state.isUploading ? (
+                  `Loading...`
+                ) : (
+                  <img
+                    style={{ width: "50%", height: "auto" }}
+                    src={placeholderImg}
+                    alt={`${firebase.auth().currentUser.displayName} listing`}
+                  />
+                )}
+              </GridItem>
+              <GridItem xs={3}>
+                <Button
+                  color="primary"
+                  component={CustomUploadButton}
+                  hidden
+                  accept="image/*"
+                  name="listing"
+                  randomizeFilename
+                  storageRef={firebase.storage().ref("images")}
+                  onUploadStart={this.handleUploadStart}
+                  onUploadError={this.handleUploadError}
+                  onUploadSuccess={this.handleUploadSuccess}
+                  onProgress={this.handleProgress}
+                >
+                  <AddPhotoAlternateIcon />
+                </Button>
+              </GridItem>
+            </GridContainer>
             <CustomInput
               labelText="Name"
               id="name"
@@ -184,17 +215,18 @@ class AddListing extends Component {
                 value: this.state.name
               }}
             />
-            <Input placeholder="Address" type="text" id="autoComplete" />
-            <Map
-              google={this.props.google}
-              initialCenter={{
-                lat: 41.503152,
-                lng: -90.550617
+            <CustomInput
+              labelText="Address"
+              id="address"
+              formControlProps={{
+                fullWidth: true
               }}
-              onClick={this.props.google}
-              zoom={14}
-              onReady={this.initAutocomplete}
+              inputProps={{
+                onChange: this.inputChange,
+                value: this.state.address
+              }}
             />
+
             <CustomInput
               labelText="Description"
               id="desc"
@@ -253,7 +285,9 @@ class AddListing extends Component {
             <Button color="primary" type="submit">
               Add Property
             </Button>
-            <Button color="info">Clear Form</Button>
+            <Button color="info" onClick={this.clearForm}>
+              <ClearIcon /> Clear All
+            </Button>
           </form>
         )}
       </div>
