@@ -7,6 +7,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
+import DescriptionIcon from "@material-ui/icons/Description";
+import MoneyIcon from "@material-ui/icons/Money";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 
 class PropertyItem extends React.Component {
   render() {
@@ -35,26 +38,26 @@ class PropertyItem extends React.Component {
                 <Typography gutterBottom variant="h5" component="h2">
                   {this.props.address}
                 </Typography>
-                  <GridContainer justify="flex-start" alignItems="center">
+                <GridContainer justify="flex-start" alignItems="center">
                   <Typography component="p" style={{ margin: "1em" }}>
-                      <DescriptionIcon color="primary" />
-                      {this.props.description}
-                    </Typography>
-                  </GridContainer>
+                    <DescriptionIcon color="primary" />
+                    {this.props.description}
+                  </Typography>
+                </GridContainer>
 
-                  <GridContainer justify="flex-start" alignItems="center">
-                <Typography component="p" style={{ margin: "1em" }}>
+                <GridContainer justify="flex-start" alignItems="center">
+                  <Typography component="p" style={{ margin: "1em" }}>
                     <MoneyIcon color="primary" />
                     {this.props.price}
-                </Typography>
-                  </GridContainer>
+                  </Typography>
+                </GridContainer>
 
-                  <GridContainer justify="flex-start" alignItems="center">
-                <Typography component="p" style={{ margin: "1em" }}>
+                <GridContainer justify="flex-start" alignItems="center">
+                  <Typography component="p" style={{ margin: "1em" }}>
                     <MeetingRoomIcon color="primary" />
                     {this.props.rooms}
-                </Typography>
-                  </GridContainer>
+                  </Typography>
+                </GridContainer>
                 <Typography component="p">{this.props.description}</Typography>
               </CardContent>
             </CardActionArea>
