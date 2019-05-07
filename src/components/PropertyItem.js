@@ -18,7 +18,7 @@ class PropertyItem extends React.Component {
       <GridItem xs={12} sm={6} md={3} style={{ margin: "1em 0" }}>
         <Link
           to={{
-            pathname: `/listing/${this.props.id}`,
+            pathname: `/admin/listings/${this.props.id}`, //path => /admin/listings/:id
             state: {
               info: this.props.info
             }
@@ -32,7 +32,8 @@ class PropertyItem extends React.Component {
                 height="100%"
                 width="100%"
                 image={
-                  this.props.imagePath ? this.props.imagePath : placeholderImg
+                  this.props.imagePath ||
+                  "https://firebasestorage.googleapis.com/v0/b/homebase-3336e.appspot.com/o/placeholderImg.jpg?alt=media&token=13b6c9e5-7fdf-4955-a46f-a55d34f6f4b6"
                 }
                 title={this.props.address}
                 style={this.props.styles.media}
