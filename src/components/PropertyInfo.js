@@ -4,7 +4,7 @@ export default class PropertyInfo extends Component {
     constructor(props){
         super(props)
         this.state = {
-          ...this.props.location.state.info
+          ...this.props.history.location.state.info
         }
     }
   render() {
