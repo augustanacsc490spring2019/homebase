@@ -6,6 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
 import GridItem from "components/Grid/GridItem.jsx";
+import placeholderImg from "../assets/img/placeholderImg.jpg";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import DescriptionIcon from "@material-ui/icons/Description";
 import MoneyIcon from "@material-ui/icons/Money";
@@ -30,7 +31,9 @@ class PropertyItem extends React.Component {
                 className={this.props.classes.media}
                 height="100%"
                 width="100%"
-                image={this.props.imagePath}
+                image={
+                  this.props.imagePath ? this.props.imagePath : placeholderImg
+                }
                 title={this.props.address}
                 style={this.props.styles.media}
               />

@@ -14,8 +14,11 @@ import {
   Chip,
   Snackbar,
   IconButton,
-  Input,
-  Typography
+  Typography,
+  List,
+  ListItem,
+  Checkbox,
+  ListItemText
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -46,17 +49,19 @@ class AddListing extends Component {
       snackbarOpen: false,
       progress: 0,
       isUploading: false,
-      rulesList: []
+      rulesList: [],
+      selectedRules: []
     };
   }
 
   componentDidMount = () => {
     pullFromFirebase("rules", snapshot => {
+      let rules = [];
       snapshot.forEach(item => {
-        const list = this.state.rulesList;
-        this.setState({
-          rulesList: [...list, item.val()]
-        });
+        rules.push(item.val());
+      });
+      this.setState({
+        rulesList: rules
       });
     });
   };
@@ -135,17 +140,17 @@ class AddListing extends Component {
   };
 
   handleDeleteChip = data => () => {
-    const rules = [...this.state.rulesList];
+    const rules = [...this.state.selectedRules];
     const ruleToDelete = rules.indexOf(data);
     rules.splice(ruleToDelete, 1);
 
     this.setState({
-      rulesList: rules
+      selectedRules: rules
     });
   };
 
   ruleChips = () => {
-    return this.state.rulesList.map(data => {
+    return this.state.selectedRules.map(data => {
       let icon = null;
 
       if (data === "No pets") {
@@ -153,10 +158,49 @@ class AddListing extends Component {
       }
 
       return (
-        <Chip icon={icon} label={data} onDelete={this.handleDeleteChip(data)} />
+        <Chip
+          icon={icon}
+          key={data}
+          label={data}
+          onDelete={this.handleDeleteChip(data)}
+        />
       );
     });
   };
+
+  // https://material-ui.com/demos/selects/
+
+  handleToggle = value => () => {
+    const { selectedRules } = this.state;
+    const currentIndex = selectedRules.indexOf(value);
+    const newChecked = [...selectedRules];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    this.setState({
+      selectedRules: newChecked
+    });
+  };
+
+  rulesBox = () => (
+    <List>
+      {this.state.rulesList.map(rule => (
+        <ListItem
+          key={rule}
+          value={rule}
+          button
+          onClick={this.handleToggle(rule)}
+        >
+          <Checkbox checked={this.state.selectedRules.indexOf(rule) > -1} />
+          <ListItemText primary={rule} />
+        </ListItem>
+      ))}
+    </List>
+  );
   // https://material-ui.com/demos/snackbars/
   snackBar = () => {
     return (
@@ -193,145 +237,148 @@ class AddListing extends Component {
         {!this.props.isSignedIn ? (
           <h2>Please sign in!</h2>
         ) : (
-          <form onSubmit={this.submitForm} autoComplete="off">
+          <div>
+            <form onSubmit={this.submitForm} autoComplete="off">
+              {this.snackBar()}
+              <br />
+              <Typography variant="h5">Listing Image</Typography>
+              {/* https://www.npmjs.com/package/react-firebase-file-uploader */}
+
+              <GridContainer
+                spacing={24}
+                alignItems="center"
+                justify="flex-start"
+              >
+                <GridItem xs={6}>
+                  {this.state.pic ? (
+                    <img
+                      style={{ width: "50%", height: "auto" }}
+                      src={this.state.pic}
+                      alt={`${firebase.auth().currentUser.displayName} listing`}
+                    />
+                  ) : this.state.isUploading ? (
+                    `Loading...`
+                  ) : (
+                    <img
+                      style={{ width: "50%", height: "auto" }}
+                      src={placeholderImg}
+                      alt={`${firebase.auth().currentUser.displayName} listing`}
+                    />
+                  )}
+                </GridItem>
+                <GridItem xs={3}>
+                  <Button
+                    color="primary"
+                    component={CustomUploadButton}
+                    hidden
+                    accept="image/*"
+                    name="listing"
+                    randomizeFilename
+                    storageRef={firebase.storage().ref("images")}
+                    onUploadStart={this.handleUploadStart}
+                    onUploadError={this.handleUploadError}
+                    onUploadSuccess={this.handleUploadSuccess}
+                    onProgress={this.handleProgress}
+                  >
+                    <AddPhotoAlternateIcon />
+                  </Button>
+                </GridItem>
+              </GridContainer>
+              <CustomInput
+                labelText="Name"
+                id="name"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  onChange: this.inputChange,
+                  value: this.state.name
+                }}
+              />
+              <CustomInput
+                labelText="Address"
+                id="address"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  onChange: this.inputChange,
+                  value: this.state.address
+                }}
+              />
+
+              <CustomInput
+                labelText="Description"
+                id="desc"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  onChange: this.inputChange,
+                  value: this.state.desc
+                }}
+              />
+              {this.ruleChips()}
+              {this.rulesBox()}
+              <CustomInput
+                labelText="Rules"
+                id="rules"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  onChange: this.inputChange,
+                  value: this.state.rules
+                }}
+              />
+              <CustomInput
+                labelText="Price"
+                id="price"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  onChange: this.inputChange,
+                  value: this.state.price
+                }}
+              />
+              <CustomInput
+                labelText="Type"
+                id="type"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  onChange: this.inputChange,
+                  value: this.state.type
+                }}
+              />
+              <CustomInput
+                labelText="Rooms"
+                id="rooms"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  onChange: this.inputChange,
+                  value: this.state.rooms
+                }}
+              />
+              <Button color="primary" type="submit">
+                Add Property
+              </Button>
+              <Button color="info" onClick={this.clearForm}>
+                <ClearIcon /> Clear All
+              </Button>
+            </form>
             <Map
               google={this.props.google}
               onClick={this.props.google}
               visible={false}
               onReady={this.initAutocomplete}
+              style={{ width: "0", height: "0" }}
             />
-
-            {this.snackBar()}
-            <br />
-            <Typography variant="h5">Listing Image</Typography>
-            {/* https://www.npmjs.com/package/react-firebase-file-uploader */}
-
-            <GridContainer
-              spacing={24}
-              alignItems="center"
-              justify="flex-start"
-            >
-              <GridItem xs={6}>
-                {this.state.pic ? (
-                  <img
-                    style={{ width: "50%", height: "auto" }}
-                    src={this.state.pic}
-                    alt={`${firebase.auth().currentUser.displayName} listing`}
-                  />
-                ) : this.state.isUploading ? (
-                  `Loading...`
-                ) : (
-                  <img
-                    style={{ width: "50%", height: "auto" }}
-                    src={placeholderImg}
-                    alt={`${firebase.auth().currentUser.displayName} listing`}
-                  />
-                )}
-              </GridItem>
-              <GridItem xs={3}>
-                <Button
-                  color="primary"
-                  component={CustomUploadButton}
-                  hidden
-                  accept="image/*"
-                  name="listing"
-                  randomizeFilename
-                  storageRef={firebase.storage().ref("images")}
-                  onUploadStart={this.handleUploadStart}
-                  onUploadError={this.handleUploadError}
-                  onUploadSuccess={this.handleUploadSuccess}
-                  onProgress={this.handleProgress}
-                >
-                  <AddPhotoAlternateIcon />
-                </Button>
-              </GridItem>
-            </GridContainer>
-            <CustomInput
-              labelText="Name"
-              id="name"
-              formControlProps={{
-                fullWidth: true
-              }}
-              inputProps={{
-                onChange: this.inputChange,
-                value: this.state.name
-              }}
-            />
-            <CustomInput
-              labelText="Address"
-              id="address"
-              formControlProps={{
-                fullWidth: true
-              }}
-              inputProps={{
-                onChange: this.inputChange,
-                value: this.state.address
-              }}
-            />
-
-            <CustomInput
-              labelText="Description"
-              id="desc"
-              formControlProps={{
-                fullWidth: true
-              }}
-              inputProps={{
-                onChange: this.inputChange,
-                value: this.state.desc
-              }}
-            />
-            {this.ruleChips()}
-            <CustomInput
-              labelText="Rules"
-              id="rules"
-              formControlProps={{
-                fullWidth: true
-              }}
-              inputProps={{
-                onChange: this.inputChange,
-                value: this.state.rules
-              }}
-            />
-            <CustomInput
-              labelText="Price"
-              id="price"
-              formControlProps={{
-                fullWidth: true
-              }}
-              inputProps={{
-                onChange: this.inputChange,
-                value: this.state.price
-              }}
-            />
-            <CustomInput
-              labelText="Type"
-              id="type"
-              formControlProps={{
-                fullWidth: true
-              }}
-              inputProps={{
-                onChange: this.inputChange,
-                value: this.state.type
-              }}
-            />
-            <CustomInput
-              labelText="Rooms"
-              id="rooms"
-              formControlProps={{
-                fullWidth: true
-              }}
-              inputProps={{
-                onChange: this.inputChange,
-                value: this.state.rooms
-              }}
-            />
-            <Button color="primary" type="submit">
-              Add Property
-            </Button>
-            <Button color="info" onClick={this.clearForm}>
-              <ClearIcon /> Clear All
-            </Button>
-          </form>
+          </div>
         )}
       </div>
     );
