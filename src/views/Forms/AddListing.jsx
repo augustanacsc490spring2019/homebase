@@ -97,7 +97,7 @@ class AddListing extends Component {
       }
     });
     this.setState({ ...defaultState, snackbarOpen: true });
-    return <Route path={"/admin/listings"} component={PropertiesPage} />;
+    return <Route path={"/admin/properties"} component={PropertiesPage} />;
   };
 
   clearForm = e => {
