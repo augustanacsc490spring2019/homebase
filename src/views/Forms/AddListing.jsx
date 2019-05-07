@@ -10,13 +10,23 @@ import Button from "../../components/CustomButtons/Button.jsx";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
 import { pushToFirebase } from "../../reference/firebase/index";
+<<<<<<< Updated upstream
 import { Snackbar, IconButton, Typography } from "@material-ui/core";
+=======
+import {
+  Chip,
+  Snackbar,
+  IconButton,
+  Input,
+  Typography
+} from "@material-ui/core";
+>>>>>>> Stashed changes
 import CloseIcon from "@material-ui/icons/Close";
 import ClearIcon from "@material-ui/icons/Clear";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
 import { Map, GoogleApiWrapper } from "google-maps-react";
-import firebase from "../../reference/firebase";
+import firebase, { pullFromFirebase } from "../../reference/firebase";
 import placeholderImg from "../../assets/img/placeholderImg.jpg";
 
 const defaultState = {
@@ -39,9 +49,21 @@ class AddListing extends Component {
       ...defaultState,
       snackbarOpen: false,
       progress: 0,
-      isUploading: false
+      isUploading: false,
+      rulesList: []
     };
   }
+
+  componentDidMount = () => {
+    pullFromFirebase("rules", snapshot => {
+      snapshot.forEach(item => {
+        const list = this.state.rulesList;
+        this.setState({
+          rulesList: [...list, item.val()]
+        });
+      });
+    });
+  };
 
   inputChange = e => {
     const id = e.target.id;
@@ -116,6 +138,29 @@ class AddListing extends Component {
       .then(url => this.setState({ pic: url }));
   };
 
+  handleDeleteChip = data => () => {
+    const rules = [...this.state.rulesList];
+    const ruleToDelete = rules.indexOf(data);
+    rules.splice(ruleToDelete, 1);
+
+    this.setState({
+      rulesList: rules
+    });
+  };
+
+  ruleChips = () => {
+    return this.state.rulesList.map(data => {
+      let icon = null;
+
+      if (data === "No pets") {
+        icon = <ClearIcon />;
+      }
+
+      return (
+        <Chip icon={icon} label={data} onDelete={this.handleDeleteChip(data)} />
+      );
+    });
+  };
   // https://material-ui.com/demos/snackbars/
   snackBar = () => {
     return (
@@ -146,6 +191,7 @@ class AddListing extends Component {
   };
 
   render() {
+    console.log(this.state.rulesList);
     return (
       <div>
         {!this.props.isSignedIn ? (
@@ -238,6 +284,7 @@ class AddListing extends Component {
                 value: this.state.desc
               }}
             />
+            {this.ruleChips()}
             <CustomInput
               labelText="Rules"
               id="rules"
