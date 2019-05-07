@@ -21,7 +21,7 @@ ReactDOM.render(
       <Switch>
         <Route path="/admin" component={Admin} />
         <Route path="/listing/:id" component={PropertyInfo} />
-        <Redirect from="/" to="/admin/dashboard" component={Dashboard} />
+        <Redirect from="/" to="/admin/landing" component={Dashboard} />
       </Switch>
     </Router>
   </Provider>,
