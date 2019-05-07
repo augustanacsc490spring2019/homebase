@@ -3,6 +3,7 @@ import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import BubbleChart from "@material-ui/icons/BubbleChart";
+import AddBox from "@material-ui/icons/AddBox";
 // import LocationOn from "@material-ui/icons/LocationOn";
 import Notifications from "@material-ui/icons/Notifications";
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
@@ -86,9 +87,9 @@ const dashboardRoutes = [
     display: false
   },
   {
-    path: "/listings/add",
+    path: "/addlisting",
     name: "Add Listing",
-    icon: Notifications,
+    icon: AddBox,
     component: AddListing,
     layout: "/admin",
     display: true

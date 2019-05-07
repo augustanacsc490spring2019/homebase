@@ -147,5 +147,4 @@ const Sidebar = ({ ...props }) => {
   );
 };
 
-
 export default withStyles(sidebarStyle)(Sidebar);

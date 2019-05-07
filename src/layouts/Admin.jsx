@@ -35,6 +35,7 @@ const switchRoutes = (
       if (prop.layout === "/admin") {
         return (
           <Route
+            exact
             path={prop.layout + prop.path}
             component={prop.component}
             key={key}
@@ -144,7 +145,6 @@ class Dashboard extends React.Component {
     );
   }
 }
-
 
 export default compose(
   connect(
