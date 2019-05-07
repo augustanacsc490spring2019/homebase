@@ -10,9 +10,6 @@ import Button from "../../components/CustomButtons/Button.jsx";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
 import { pushToFirebase } from "../../reference/firebase/index";
-<<<<<<< Updated upstream
-import { Snackbar, IconButton, Typography } from "@material-ui/core";
-=======
 import {
   Chip,
   Snackbar,
@@ -20,7 +17,6 @@ import {
   Input,
   Typography
 } from "@material-ui/core";
->>>>>>> Stashed changes
 import CloseIcon from "@material-ui/icons/Close";
 import ClearIcon from "@material-ui/icons/Clear";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
