@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { compose } from "redux";
 import { Route } from "react-router-dom";
 import PropertiesPage from "../../views/Properties/Properties";
-
-import CustomInput from "../../components/CustomInput/CustomInput.jsx";
 import Button from "../../components/CustomButtons/Button.jsx";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
@@ -20,7 +18,8 @@ import {
   Checkbox,
   ListItemText,
   Paper,
-  TextField
+  TextField,
+  CircularProgress
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -243,40 +242,33 @@ class AddListing extends Component {
   render() {
     console.log(this.state.rulesList);
     return (
-      <div>
+      <>
         {!this.props.isSignedIn ? (
           <h2>Please sign in!</h2>
         ) : (
-          <Paper style={{ padding: 20 }} elevation={1}>
+          <Paper style={{ width: '90%', maxWidth: '80ch', margin: '0 auto' }} elevation={1}>
             <form onSubmit={this.submitForm} autoComplete="off">
               {this.snackBar()}
               <br />
-              <Typography variant="h5">Listing Image</Typography>
+              <Typography variant="h3" style={{marginBottom: '.5em', padding: '0 1ch'}}>Listing Image</Typography>
               {/* https://www.npmjs.com/package/react-firebase-file-uploader */}
-
-              <GridContainer
-                spacing={24}
-                alignItems="center"
-                justify="flex-start"
-              >
-                <GridItem xs={6}>
                   {this.state.pic ? (
                     <img
-                      style={{ width: "50%", height: "auto" }}
+                      style={{ width: "100%", height: "auto" }}
                       src={this.state.pic}
                       alt={`${firebase.auth().currentUser.displayName} listing`}
                     />
                   ) : this.state.isUploading ? (
-                    `Loading...`
-                  ) : (
+                        <CircularProgress color="secondary" style={{margin: '20ch auto', display: 'block'}}/> 
+                       ) : (
                     <img
-                      style={{ width: "50%", height: "auto" }}
+                      style={{ width: "100%", height: "auto" }}
                       src={placeholderImg}
                       alt={`${firebase.auth().currentUser.displayName} listing`}
                     />
                   )}
-                </GridItem>
-                <GridItem xs={6}>
+                  <GridContainer style={{padding: '1ch'}} spacing={40}>
+                <GridItem xs={12}>
                   <Button
                     color="primary"
                     component={CustomUploadButton}
@@ -289,12 +281,14 @@ class AddListing extends Component {
                     onUploadError={this.handleUploadError}
                     onUploadSuccess={this.handleUploadSuccess}
                     onProgress={this.handleProgress}
+                    style={{width: '100%'}}
                   >
                     <AddPhotoAlternateIcon />
+                    Add a Photo of Your Listing
                   </Button>
                 </GridItem>
 
-                <GridItem xs={4}>
+                <GridItem xs={12}>
                   <TextField
                     label="Name"
                     id="name"
@@ -303,9 +297,10 @@ class AddListing extends Component {
                     }}
                     value={this.state.name}
                     onChange={this.inputChange}
+                    style={{width: '100%'}}
                   />
                 </GridItem>
-                <GridItem xs={4}>
+                <GridItem xs={12} sm={6}>
                   <TextField
                     label="Address"
                     id="address"
@@ -314,9 +309,10 @@ class AddListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.address}
+                    style={{width: '100%'}}
                   />
                 </GridItem>
-                <GridItem xs={4}>
+                <GridItem xs={12} sm={6}>
                   <TextField
                     label="Description"
                     id="desc"
@@ -325,6 +321,7 @@ class AddListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.desc}
+                    style={{width: '100%'}}
                   />
                 </GridItem>
 
@@ -340,9 +337,11 @@ class AddListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.rules}
+                    style={{width: '100%'}}
+
                   />
                 </GridItem>
-                <GridItem xs={4}>
+                <GridItem xs={12}>
                   <TextField
                     label="Price"
                     id="price"
@@ -351,9 +350,11 @@ class AddListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.price}
+                    style={{width: '100%'}}
+
                   />
                 </GridItem>
-                <GridItem xs={4}>
+                <GridItem xs={12} sm={6}>
                   <TextField
                     label="Type"
                     id="type"
@@ -362,9 +363,11 @@ class AddListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.type}
+                    style={{width: '100%'}}
+
                   />
                 </GridItem>
-                <GridItem xs={4}>
+                <GridItem xs={12} sm={6}>
                   <TextField
                     label="Rooms"
                     id="rooms"
@@ -373,14 +376,20 @@ class AddListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.rooms}
+                    style={{width: '100%'}}
+
                   />
                 </GridItem>
-                <Button color="primary" type="submit">
-                  Add Property
-                </Button>
-                <Button color="info" onClick={this.clearForm}>
-                  <ClearIcon /> Clear All
-                </Button>
+                <GridItem xs={12} sm={6}>
+                  <Button color="primary" type="submit"  style={{width: '100%'}}>
+                    Add Property
+                  </Button>
+                </GridItem>
+                <GridItem xs={12} sm={6}>
+                  <Button color="info" onClick={this.clearForm} style={{width: '100%'}}>
+                    <ClearIcon /> Clear All
+                  </Button>
+                </GridItem>
               </GridContainer>
             </form>
             <Map
@@ -388,11 +397,11 @@ class AddListing extends Component {
               onClick={this.props.google}
               visible={false}
               onReady={this.initAutocomplete}
-              style={{ width: "0", height: "0" }}
+              style={{ width: "0", height: "0", display: 'none', visiblity: 'hidden'}}
             />
           </Paper>
         )}
-      </div>
+      </>
     );
   }
 }
