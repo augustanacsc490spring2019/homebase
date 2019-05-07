@@ -18,7 +18,9 @@ import {
   List,
   ListItem,
   Checkbox,
-  ListItemText
+  ListItemText,
+  Paper,
+  TextField
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -230,6 +232,14 @@ class AddListing extends Component {
     );
   };
 
+  paperStyles = theme => ({
+    root: {
+      ...theme.mixins.gutters(),
+      paddingTop: theme.spacing.unit * 2,
+      paddingBottom: theme.spacing.unit * 2
+    }
+  });
+
   render() {
     console.log(this.state.rulesList);
     return (
@@ -237,7 +247,7 @@ class AddListing extends Component {
         {!this.props.isSignedIn ? (
           <h2>Please sign in!</h2>
         ) : (
-          <div>
+          <Paper style={{ padding: 20 }} elevation={1}>
             <form onSubmit={this.submitForm} autoComplete="off">
               {this.snackBar()}
               <br />
@@ -266,7 +276,7 @@ class AddListing extends Component {
                     />
                   )}
                 </GridItem>
-                <GridItem xs={3}>
+                <GridItem xs={6}>
                   <Button
                     color="primary"
                     component={CustomUploadButton}
@@ -283,93 +293,95 @@ class AddListing extends Component {
                     <AddPhotoAlternateIcon />
                   </Button>
                 </GridItem>
-              </GridContainer>
-              <CustomInput
-                labelText="Name"
-                id="name"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  onChange: this.inputChange,
-                  value: this.state.name
-                }}
-              />
-              <CustomInput
-                labelText="Address"
-                id="address"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  onChange: this.inputChange,
-                  value: this.state.address
-                }}
-              />
 
-              <CustomInput
-                labelText="Description"
-                id="desc"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  onChange: this.inputChange,
-                  value: this.state.desc
-                }}
-              />
-              {this.ruleChips()}
-              {this.rulesBox()}
-              <CustomInput
-                labelText="Rules"
-                id="rules"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  onChange: this.inputChange,
-                  value: this.state.rules
-                }}
-              />
-              <CustomInput
-                labelText="Price"
-                id="price"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  onChange: this.inputChange,
-                  value: this.state.price
-                }}
-              />
-              <CustomInput
-                labelText="Type"
-                id="type"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  onChange: this.inputChange,
-                  value: this.state.type
-                }}
-              />
-              <CustomInput
-                labelText="Rooms"
-                id="rooms"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  onChange: this.inputChange,
-                  value: this.state.rooms
-                }}
-              />
-              <Button color="primary" type="submit">
-                Add Property
-              </Button>
-              <Button color="info" onClick={this.clearForm}>
-                <ClearIcon /> Clear All
-              </Button>
+                <GridItem xs={4}>
+                  <TextField
+                    label="Name"
+                    id="name"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    value={this.state.name}
+                    onChange={this.inputChange}
+                  />
+                </GridItem>
+                <GridItem xs={4}>
+                  <TextField
+                    label="Address"
+                    id="address"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    onChange={this.inputChange}
+                    value={this.state.address}
+                  />
+                </GridItem>
+                <GridItem xs={4}>
+                  <TextField
+                    label="Description"
+                    id="desc"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    onChange={this.inputChange}
+                    value={this.state.desc}
+                  />
+                </GridItem>
+
+                <GridItem xs={12}>
+                  <Typography variant="h5">Rules</Typography>
+                  {this.ruleChips()}
+                  {this.rulesBox()}
+                  <TextField
+                    label="Rules"
+                    id="rules"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    onChange={this.inputChange}
+                    value={this.state.rules}
+                  />
+                </GridItem>
+                <GridItem xs={4}>
+                  <TextField
+                    label="Price"
+                    id="price"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    onChange={this.inputChange}
+                    value={this.state.price}
+                  />
+                </GridItem>
+                <GridItem xs={4}>
+                  <TextField
+                    label="Type"
+                    id="type"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    onChange={this.inputChange}
+                    value={this.state.type}
+                  />
+                </GridItem>
+                <GridItem xs={4}>
+                  <TextField
+                    label="Rooms"
+                    id="rooms"
+                    formControlProps={{
+                      fullWidth: true
+                    }}
+                    onChange={this.inputChange}
+                    value={this.state.rooms}
+                  />
+                </GridItem>
+                <Button color="primary" type="submit">
+                  Add Property
+                </Button>
+                <Button color="info" onClick={this.clearForm}>
+                  <ClearIcon /> Clear All
+                </Button>
+              </GridContainer>
             </form>
             <Map
               google={this.props.google}
@@ -378,7 +390,7 @@ class AddListing extends Component {
               onReady={this.initAutocomplete}
               style={{ width: "0", height: "0" }}
             />
-          </div>
+          </Paper>
         )}
       </div>
     );
