@@ -13,55 +13,58 @@ import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 
 class PropertyItem extends React.Component {
   render() {
+    const { id, info, classes, address, styles, description, price, rooms, imagePath } = this.props;
+    const { card } = classes;
+    const { media } = styles;
     return (
       <GridItem xs={12} sm={6} md={3} style={{ margin: "1em 0" }}>
         <Link
           to={{
-            pathname: `/admin/listings/${this.props.id}`, //path => /admin/listings/:id
+            pathname: `/admin/listings/${id}`, //path => /admin/listings/:id
             state: {
-              info: this.props.info
+              info
             }
           }}
         >
-          <Card className={this.props.classes.card}>
+          <Card className={card}>
             <CardActionArea>
               <CardMedia
                 component="img"
-                className={this.props.classes.media}
+                className={media}
                 height="100%"
                 width="100%"
                 image={
-                  this.props.imagePath ||
+                  imagePath ||
                   "https://firebasestorage.googleapis.com/v0/b/homebase-3336e.appspot.com/o/placeholderImg.jpg?alt=media&token=13b6c9e5-7fdf-4955-a46f-a55d34f6f4b6"
                 }
-                title={this.props.address}
-                style={this.props.styles.media}
+                title={address}
+                style={media}
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
-                  {this.props.address}
+                  {address}
                 </Typography>
                 <GridContainer justify="flex-start" alignItems="center">
                   <Typography component="p" style={{ margin: "1em" }}>
                     <DescriptionIcon color="primary" />
-                    {this.props.description}
+                    {description}
                   </Typography>
                 </GridContainer>
 
                 <GridContainer justify="flex-start" alignItems="center">
                   <Typography component="p" style={{ margin: "1em" }}>
                     <MoneyIcon color="primary" />
-                    {this.props.price}
+                    {price}
                   </Typography>
                 </GridContainer>
 
                 <GridContainer justify="flex-start" alignItems="center">
                   <Typography component="p" style={{ margin: "1em" }}>
                     <MeetingRoomIcon color="primary" />
-                    {this.props.rooms}
+                    {rooms}
                   </Typography>
                 </GridContainer>
-                <Typography component="p">{this.props.description}</Typography>
+                <Typography component="p">{description}</Typography>
               </CardContent>
             </CardActionArea>
           </Card>
