@@ -95,13 +95,23 @@ const dashboardRoutes = [
     display: true
   },
   {
-    path: "/listings/:id",
+    path: "/listings/view/:id",
     name: "Listing",
     icon: Notifications,
     component: PropertyInfo,
     layout: "/admin",
     display: false
   }
+  // ,
+  // {
+  //   path: "/listings/:id",
+  //   name: "Listing",
+  //   icon: Notifications,
+  //   component: PropertyInfo,
+  //   layout: "/admin",
+  //   display: false
+  // }
+
   // {
   //   path: "/firebasetest",
   //   name: "FirebaseTest",

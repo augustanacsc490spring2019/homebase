@@ -20,7 +20,7 @@ ReactDOM.render(
     <Router history={hist}>
       <Switch>
         <Route path="/admin" component={Admin} />
-        <Route path="/admin/listings/:id" component={PropertyInfo} />
+        <Route path="/admin/listings/view/:id" component={PropertyInfo} />
         <Redirect from="/" to="/admin/landing" component={Dashboard} />
       </Switch>
     </Router>

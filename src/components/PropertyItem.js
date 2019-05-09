@@ -10,7 +10,14 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import DescriptionIcon from "@material-ui/icons/Description";
 import MoneyIcon from "@material-ui/icons/Money";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import Button from "@material-ui/core/Button";
+import { withStyles } from '@material-ui/core/styles';
 
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit,
+  }
+});
 class PropertyItem extends React.Component {
   render() {
     const { id, info, classes, address, styles, description, price, rooms, imagePath } = this.props;
@@ -20,13 +27,14 @@ class PropertyItem extends React.Component {
       <GridItem xs={12} sm={6} md={3} style={{ margin: "1em 0" }}>
         <Link
           to={{
-            pathname: `/admin/listings/${id}`, //path => /admin/listings/:id
+            pathname: `/admin/listings/view/${id}`, //path => /admin/listings/:id
             state: {
               info
             }
           }}
         >
           <Card className={card}>
+
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -41,6 +49,7 @@ class PropertyItem extends React.Component {
                 style={media}
               />
               <CardContent>
+
                 <Typography gutterBottom variant="h5" component="h2">
                   {address}
                 </Typography>
@@ -65,13 +74,25 @@ class PropertyItem extends React.Component {
                   </Typography>
                 </GridContainer>
                 <Typography component="p">{description}</Typography>
+
+                <GridContainer justify="space-between" alignItems="center">
+                  <Button variant="contained" color="primary" className={classes.button}>
+                    Edit
+              </Button>
+                  <Button variant="contained" color="secondary" className={classes.button}>
+                    Delete
+              </Button>
+                </GridContainer>
               </CardContent>
             </CardActionArea>
+
           </Card>
+
         </Link>
+
       </GridItem>
     );
   }
 }
 
-export { PropertyItem as default };
+export default withStyles(styles)(PropertyItem)
