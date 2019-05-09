@@ -19,6 +19,16 @@ export const pushToFirebase = (reference, object) => {
   ref.push(object);
 };
 
+export const deleteFromFirebase = reference => {
+  let item = firebase.database().ref(reference);
+  item.remove().then(()=>{
+    console.log("Remove succeeded");
+  })
+  .catch(err => {
+    console.log("Remove failed: " + err.message);
+  })
+}
+
 export const pullFromFirebase = (reference, callback) => {
   const ref = firebase.database().ref(reference);
   ref.on(

@@ -7,7 +7,7 @@ import PropertiesPage from "../../views/Properties/Properties";
 import Button from "../../components/CustomButtons/Button.jsx";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
-import { pushToFirebase } from "../../reference/firebase/index";
+import { pushToFirebase, deleteFromFirebase } from "../../reference/firebase/index";
 import {
   Chip,
   Snackbar,
@@ -31,7 +31,6 @@ import placeholderImg from "../../assets/img/placeholderImg.jpg";
 class EditListing extends Component {
   constructor(props) {
     super(props);
-    console.log(props)
     this.state = {
       ...props.history.location.state.info,
       snackbarOpen: false,
@@ -43,7 +42,6 @@ class EditListing extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.state)
     pullFromFirebase("rules", snapshot => {
       let rules = [this.state.rules];
       snapshot.forEach(item => {
@@ -78,6 +76,7 @@ class EditListing extends Component {
     const currentUser = firebase.auth().currentUser;
     // excluding other state elements
     const { snackbarOpen, process, isUploading, ...curState } = this.state;
+    console.log(this.state);
     pushToFirebase(`listings/${this.state.id}`, {
       ...curState,
       owner: {
@@ -88,11 +87,12 @@ class EditListing extends Component {
       }
     });
     // this.setState({ ...defaultState, snackbarOpen: true });
-    return <Route path={"/admin/properties"} component={PropertiesPage} />;
+    return <Route path={"/admin/listings"} component={PropertiesPage} />;
   };
 
-  clearForm = e => {
-    // this.setState({ ...defaultState, snackbarOpen: false });
+  deleteProperty = () => {
+    deleteFromFirebase(`listings/${this.state.id}`);
+    this.props.history.push('/admin/listings')
   };
 
   initAutocomplete = mapProps => {
@@ -179,9 +179,9 @@ class EditListing extends Component {
 
   rulesBox = () => (
     <List>
-      {this.state.rulesList.map(rule => (
+      {this.state.rulesList.map((rule, key) => (
         <ListItem
-          key={rule}
+          key={key}
           value={rule}
           button
           onClick={this.handleToggle(rule)}
@@ -230,7 +230,6 @@ class EditListing extends Component {
   });
 
   render() {
-    console.log(this.state.rulesList);
     return (
       <>
         {!this.props.isSignedIn ? (
@@ -376,7 +375,7 @@ class EditListing extends Component {
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={6}>
-                  <Button color="secondary" onClick={this.clearForm} style={{width: '100%'}}>
+                  <Button color="secondary" onClick={this.deleteProperty} style={{width: '100%'}}>
                     <ClearIcon /> Delete Property
                   </Button>
                 </GridItem>

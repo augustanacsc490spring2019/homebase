@@ -26,31 +26,30 @@ class PropertyItem extends React.Component {
     const { media } = styles;
     return (
       <GridItem xs={12} sm={6} md={3} style={{ margin: "1em 0" }}>
-        <Link
-          to={{
-            pathname: `/admin/listings/view/${id}`, //path => /admin/listings/:id
-            state: {
-              info
-            }
-          }}
-        >
-          <Card className={card}>
+        <Card className={card}>
+          <CardActionArea>
 
-            <CardActionArea>
-              <CardMedia
-                component="img"
-                className={media}
-                height="100%"
-                width="100%"
-                image={
-                  imagePath ||
-                  "https://firebasestorage.googleapis.com/v0/b/homebase-3336e.appspot.com/o/placeholderImg.jpg?alt=media&token=13b6c9e5-7fdf-4955-a46f-a55d34f6f4b6"
-                }
-                title={address}
-                style={media}
-              />
-              <CardContent>
-
+            <CardMedia
+              component="img"
+              className={media}
+              height="100%"
+              width="100%"
+              image={
+                imagePath ||
+                "https://firebasestorage.googleapis.com/v0/b/homebase-3336e.appspot.com/o/placeholderImg.jpg?alt=media&token=13b6c9e5-7fdf-4955-a46f-a55d34f6f4b6"
+              }
+              title={address}
+              style={media}
+            />
+            <CardContent>
+              <Link
+                to={{
+                  pathname: `/admin/listings/view/${id}`, //path => /admin/listings/:id
+                  state: {
+                    info
+                  }
+                }}
+              >
                 <Typography gutterBottom variant="h5" component="h2">
                   {address}
                 </Typography>
@@ -75,30 +74,30 @@ class PropertyItem extends React.Component {
                   </Typography>
                 </GridContainer>
                 <Typography component="p">{description}</Typography>
-
-                <GridContainer justify="space-between" alignItems="center">
+              </Link>
+              <GridContainer justify="space-between" alignItems="center">
                 <Link
                   to={{
                     pathname: `/admin/listings/edit/${id}`, //path => /admin/listings/:id
                     state: {
-                        info
-                      }
-                    }}
-                  >
-                    <Button variant="contained" color="primary" className={classes.button}>
-                      Edit
+                      info
+                    }
+                  }}
+                >
+                  <Button variant="contained" color="primary" className={classes.button}>
+                    Edit
                     </Button>
-                  </Link>
-                  <Button variant="contained" color="secondary" className={classes.button}>
-                    Delete
+                </Link>
+                <Button variant="contained" color="secondary" className={classes.button}>
+                  Delete
                   </Button>
-                </GridContainer>
-              </CardContent>
-            </CardActionArea>
+              </GridContainer>
+            </CardContent>
+          </CardActionArea>
 
-          </Card>
+        </Card>
 
-        </Link>
+
 
       </GridItem>
     );
