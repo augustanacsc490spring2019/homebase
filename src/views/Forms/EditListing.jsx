@@ -28,25 +28,12 @@ import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadBut
 import { Map, GoogleApiWrapper } from "google-maps-react";
 import firebase, { pullFromFirebase } from "../../reference/firebase";
 import placeholderImg from "../../assets/img/placeholderImg.jpg";
-
-const defaultState = {
-  name: "",
-  address: "",
-  desc: "",
-  rules: "",
-  price: "",
-  type: "",
-  status: "",
-  rooms: "",
-  pic: "",
-  owner: {}
-};
-
 class EditListing extends Component {
   constructor(props) {
     super(props);
+    console.log(props)
     this.state = {
-      ...defaultState,
+      ...props.history.location.state.info,
       snackbarOpen: false,
       progress: 0,
       isUploading: false,
@@ -56,10 +43,13 @@ class EditListing extends Component {
   }
 
   componentDidMount = () => {
+    console.log(this.state)
     pullFromFirebase("rules", snapshot => {
-      let rules = [];
+      let rules = [this.state.rules];
       snapshot.forEach(item => {
-        rules.push(item.val());
+        if(!rules.includes(item)){
+          rules.push(item.val());
+        }
       });
       this.setState({
         rulesList: rules
@@ -88,7 +78,7 @@ class EditListing extends Component {
     const currentUser = firebase.auth().currentUser;
     // excluding other state elements
     const { snackbarOpen, process, isUploading, ...curState } = this.state;
-    pushToFirebase("listings", {
+    pushToFirebase(`listings/${this.state.id}`, {
       ...curState,
       owner: {
         displayName: currentUser.displayName,
@@ -97,12 +87,12 @@ class EditListing extends Component {
         uid: currentUser.uid
       }
     });
-    this.setState({ ...defaultState, snackbarOpen: true });
+    // this.setState({ ...defaultState, snackbarOpen: true });
     return <Route path={"/admin/properties"} component={PropertiesPage} />;
   };
 
   clearForm = e => {
-    this.setState({ ...defaultState, snackbarOpen: false });
+    // this.setState({ ...defaultState, snackbarOpen: false });
   };
 
   initAutocomplete = mapProps => {
@@ -284,7 +274,7 @@ class EditListing extends Component {
                     style={{width: '100%'}}
                   >
                     <AddPhotoAlternateIcon />
-                    Add a Photo of Your Listing
+                    Change Photo of Your Listing
                   </Button>
                 </GridItem>
 
@@ -382,12 +372,12 @@ class EditListing extends Component {
                 </GridItem>
                 <GridItem xs={12} sm={6}>
                   <Button color="primary" type="submit"  style={{width: '100%'}}>
-                    Add Property
+                    Submit Edit
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={6}>
-                  <Button color="info" onClick={this.clearForm} style={{width: '100%'}}>
-                    <ClearIcon /> Clear All
+                  <Button color="secondary" onClick={this.clearForm} style={{width: '100%'}}>
+                    <ClearIcon /> Delete Property
                   </Button>
                 </GridItem>
               </GridContainer>
@@ -406,7 +396,7 @@ class EditListing extends Component {
   }
 }
 
-AddListing.propTypes = {
+EditListing.propTypes = {
   isSignedIn: PropTypes.bool.isRequired
 };
 const mapStateToProps = state => ({
@@ -418,4 +408,4 @@ export default compose(
     apiKey: process.env.REACT_APP_MAP_API_KEY
   }),
   connect(mapStateToProps)
-)(AddListing);
+)(EditListing);

@@ -12,6 +12,7 @@ import MoneyIcon from "@material-ui/icons/Money";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles';
+import EditListing from '../views/Forms/EditListing';
 
 const styles = theme => ({
   button: {
@@ -76,12 +77,21 @@ class PropertyItem extends React.Component {
                 <Typography component="p">{description}</Typography>
 
                 <GridContainer justify="space-between" alignItems="center">
-                  <Button variant="contained" color="primary" className={classes.button}>
-                    Edit
-              </Button>
+                <Link
+                  to={{
+                    pathname: `/admin/listings/edit/${id}`, //path => /admin/listings/:id
+                    state: {
+                        info
+                      }
+                    }}
+                  >
+                    <Button variant="contained" color="primary" className={classes.button}>
+                      Edit
+                    </Button>
+                  </Link>
                   <Button variant="contained" color="secondary" className={classes.button}>
                     Delete
-              </Button>
+                  </Button>
                 </GridContainer>
               </CardContent>
             </CardActionArea>

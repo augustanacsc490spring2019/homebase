@@ -16,6 +16,7 @@ import NotificationsPage from "views/Notifications/Notifications.jsx";
 import AddListing from "views/Forms/AddListing.jsx";
 import PropertiesPage from "views/Properties/Properties.jsx";
 import PropertyInfo from "./components/PropertyInfo";
+import EditListing from "./views/Forms/EditListing";
 // import FirebaseTest from "views/FirebaseTest/FirebaseTest.jsx";
 // core components/views for RTL layout
 // import RTLPage from "views/RTLPage/RTLPage.jsx";
@@ -101,16 +102,15 @@ const dashboardRoutes = [
     component: PropertyInfo,
     layout: "/admin",
     display: false
+  },
+  {
+    path: "/listings/edit/:id",
+    name: "Listing",
+    icon: Notifications,
+    component: EditListing,
+    layout: "/admin",
+    display: false
   }
-  // ,
-  // {
-  //   path: "/listings/:id",
-  //   name: "Listing",
-  //   icon: Notifications,
-  //   component: PropertyInfo,
-  //   layout: "/admin",
-  //   display: false
-  // }
 
   // {
   //   path: "/firebasetest",

@@ -12,11 +12,9 @@ export default class PropertyInfo extends Component {
   render() {
     console.log(this.state)
     return (
-      <Card style={{width: '80ch', margin: '0 auto'}}>
+      <Card style={{width: 'auto', height: 'auto', margin: '0 auto'}}>
         <CardMedia
                 component="img"
-                height="100%"
-                width="100%"
                 image={
                   this.state.pic ||
                   "https://firebasestorage.googleapis.com/v0/b/homebase-3336e.appspot.com/o/placeholderImg.jpg?alt=media&token=13b6c9e5-7fdf-4955-a46f-a55d34f6f4b6"
