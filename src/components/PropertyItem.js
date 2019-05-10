@@ -12,8 +12,7 @@ import MoneyIcon from "@material-ui/icons/Money";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles';
-import EditListing from '../views/Forms/EditListing';
-
+import { deleteFromFirebase } from "../reference/firebase/index";
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
@@ -88,7 +87,7 @@ class PropertyItem extends React.Component {
                     Edit
                     </Button>
                 </Link>
-                <Button variant="contained" color="secondary" className={classes.button}>
+                <Button onClick={()=> deleteFromFirebase(`/listings/${id}`)} variant="contained" color="secondary" className={classes.button}>
                   Delete
                   </Button>
               </GridContainer>

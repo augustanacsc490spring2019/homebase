@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { Route } from "react-router-dom";
-import PropertiesPage from "../../views/Properties/Properties";
 import Button from "../../components/CustomButtons/Button.jsx";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
-import { pushToFirebase, deleteFromFirebase } from "../../reference/firebase/index";
+import { updateToFirebase, deleteFromFirebase } from "../../reference/firebase/index";
 import {
   Chip,
   Snackbar,
@@ -76,8 +74,7 @@ class EditListing extends Component {
     const currentUser = firebase.auth().currentUser;
     // excluding other state elements
     const { snackbarOpen, process, isUploading, ...curState } = this.state;
-    console.log(this.state);
-    pushToFirebase(`listings/${this.state.id}`, {
+    updateToFirebase(`listings/${this.state.id}`, {
       ...curState,
       owner: {
         displayName: currentUser.displayName,
@@ -86,8 +83,7 @@ class EditListing extends Component {
         uid: currentUser.uid
       }
     });
-    // this.setState({ ...defaultState, snackbarOpen: true });
-    return <Route path={"/admin/listings"} component={PropertiesPage} />;
+    this.props.history.push('/admin/listings')
   };
 
   deleteProperty = () => {

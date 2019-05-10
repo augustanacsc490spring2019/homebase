@@ -14,9 +14,13 @@ var config = {
 };
 firebase.initializeApp(config);
 
+export const updateToFirebase = (reference, object) => {
+  firebase.database().ref(reference).set(object)
+}
+
 export const pushToFirebase = (reference, object) => {
   const ref = firebase.database().ref(reference);
-  ref.push(object);
+  ref.push().set(object);
 };
 
 export const deleteFromFirebase = reference => {
