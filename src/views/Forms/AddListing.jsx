@@ -107,8 +107,13 @@ class AddListing extends Component {
 
   initAutocomplete = mapProps => {
     const { google } = mapProps;
+    // var options = {
+    //   types: ["(cities)"],
+    //   componentRestrictions: { country: "us" }
+    // };
     this.autoComplete = new google.maps.places.Autocomplete(
       document.getElementById("address")
+      // options
     );
     this.autoComplete.setFields(["geometry", "formatted_address"]);
     this.autoComplete.addListener("place_changed", () => {
@@ -330,11 +335,10 @@ class AddListing extends Component {
                 </GridItem>
 
                 <GridItem xs={12}>
-                  <Typography variant="h5">Rules</Typography>
+                  <Typography variant="subtitle1">Rules</Typography>
                   {this.ruleChips()}
                   {this.rulesBox()}
                   <TextField
-                    required
                     label="Rules"
                     id="rules"
                     onChange={this.inputChange}

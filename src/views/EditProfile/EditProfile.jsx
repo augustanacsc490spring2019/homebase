@@ -42,6 +42,7 @@ const styles = {
   }
 };
 
+<<<<<<< Updated upstream
 // const uiConfig = {
 //   signInFlow: "popup",
 //   signInOptions: [
@@ -52,6 +53,8 @@ const styles = {
 //     signInSuccess: () => false
 //   }
 // };
+=======
+>>>>>>> Stashed changes
 class UserProfile extends Component {
   state = {
     cancel: false,
