@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Provider } from "react-redux";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { Router, Route, Switch, Redirect, withRouter } from "react-router-dom";
 import store from "./reference/redux/store.jsx";
 
 // core components
@@ -19,9 +19,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={hist}>
       <Switch>
-        <Route path="/admin" component={Admin} />
-        <Route path="/admin/listings/view/:id" component={PropertyInfo} />
-        <Redirect from="/" to="/admin/landing" component={Dashboard} />
+        <Route path="/admin" component={withRouter(Admin)} />
+        <Route path="/admin/listings/view/:id" component={withRouter(PropertyInfo)} />
+        <Redirect from="/" to="/admin/landing" component={withRouter(Dashboard)} />
       </Switch>
     </Router>
   </Provider>,

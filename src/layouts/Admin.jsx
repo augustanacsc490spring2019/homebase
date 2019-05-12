@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from "react";
 // import PropTypes from "prop-types";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 // creates a beautiful scrollbar
@@ -32,12 +32,13 @@ const RouteContainer = posed.div({
 const switchRoutes = (
   <Switch location={location}>
     {routes.map((prop, key) => {
-      if (prop.layout === "/admin") {
+      const {layout, path, component } = prop;
+      if (layout === "/admin") {
         return (
           <Route
             exact
-            path={prop.layout + prop.path}
-            component={prop.component}
+            path={layout + path}
+            component={withRouter(component)}
             key={key}
           />
         );
