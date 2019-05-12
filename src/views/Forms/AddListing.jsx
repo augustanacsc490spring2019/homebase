@@ -246,28 +246,39 @@ class AddListing extends Component {
         {!this.props.isSignedIn ? (
           <h2>Please sign in!</h2>
         ) : (
-          <Paper style={{ width: '90%', maxWidth: '80ch', margin: '0 auto' }} elevation={1}>
+          <Paper
+            style={{ width: "90%", maxWidth: "80ch", margin: "0 auto" }}
+            elevation={1}
+          >
             <form onSubmit={this.submitForm} autoComplete="off">
               {this.snackBar()}
               <br />
-              <Typography variant="h3" style={{marginBottom: '.5em', padding: '0 1ch'}}>Listing Image</Typography>
+              <Typography
+                variant="h3"
+                style={{ marginBottom: ".5em", padding: "0 1ch" }}
+              >
+                Add Your Listing
+              </Typography>
               {/* https://www.npmjs.com/package/react-firebase-file-uploader */}
-                  {this.state.pic ? (
-                    <img
-                      style={{ width: "100%", height: "auto" }}
-                      src={this.state.pic}
-                      alt={`${firebase.auth().currentUser.displayName} listing`}
-                    />
-                  ) : this.state.isUploading ? (
-                        <CircularProgress color="secondary" style={{margin: '20ch auto', display: 'block'}}/> 
-                       ) : (
-                    <img
-                      style={{ width: "100%", height: "auto" }}
-                      src={placeholderImg}
-                      alt={`${firebase.auth().currentUser.displayName} listing`}
-                    />
-                  )}
-                  <GridContainer style={{padding: '1ch'}} spacing={40}>
+              {this.state.pic ? (
+                <img
+                  style={{ width: "100%", height: "auto" }}
+                  src={this.state.pic}
+                  alt={`${firebase.auth().currentUser.displayName} listing`}
+                />
+              ) : this.state.isUploading ? (
+                <CircularProgress
+                  color="secondary"
+                  style={{ margin: "20ch auto", display: "block" }}
+                />
+              ) : (
+                <img
+                  style={{ width: "100%", height: "auto" }}
+                  src={placeholderImg}
+                  alt={`${firebase.auth().currentUser.displayName} listing`}
+                />
+              )}
+              <GridContainer style={{ padding: "1ch" }} spacing={40}>
                 <GridItem xs={12}>
                   <Button
                     color="primary"
@@ -281,47 +292,41 @@ class AddListing extends Component {
                     onUploadError={this.handleUploadError}
                     onUploadSuccess={this.handleUploadSuccess}
                     onProgress={this.handleProgress}
-                    style={{width: '100%'}}
+                    style={{ width: "100%" }}
                   >
                     <AddPhotoAlternateIcon />
-                    Add a Photo of Your Listing
+                    Add a Photo
                   </Button>
                 </GridItem>
 
                 <GridItem xs={12}>
                   <TextField
+                    required
                     label="Name"
                     id="name"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
                     value={this.state.name}
                     onChange={this.inputChange}
-                    style={{width: '100%'}}
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
                   <TextField
+                    required
                     label="Address"
                     id="address"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
                     onChange={this.inputChange}
                     value={this.state.address}
-                    style={{width: '100%'}}
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
                   <TextField
+                    required
                     label="Description"
                     id="desc"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
                     onChange={this.inputChange}
                     value={this.state.desc}
-                    style={{width: '100%'}}
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
 
@@ -330,63 +335,59 @@ class AddListing extends Component {
                   {this.ruleChips()}
                   {this.rulesBox()}
                   <TextField
+                    required
                     label="Rules"
                     id="rules"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
                     onChange={this.inputChange}
                     value={this.state.rules}
-                    style={{width: '100%'}}
-
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12}>
                   <TextField
+                    required
                     label="Price"
                     id="price"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
                     onChange={this.inputChange}
                     value={this.state.price}
-                    style={{width: '100%'}}
-
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
                   <TextField
+                    required
                     label="Type"
                     id="type"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
                     onChange={this.inputChange}
                     value={this.state.type}
-                    style={{width: '100%'}}
-
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
                   <TextField
+                    required
                     label="Rooms"
                     id="rooms"
-                    formControlProps={{
-                      fullWidth: true
-                    }}
                     onChange={this.inputChange}
                     value={this.state.rooms}
-                    style={{width: '100%'}}
-
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
-                  <Button color="primary" type="submit"  style={{width: '100%'}}>
+                  <Button
+                    color="primary"
+                    type="submit"
+                    style={{ width: "100%" }}
+                  >
                     Add Property
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={6}>
-                  <Button color="info" onClick={this.clearForm} style={{width: '100%'}}>
+                  <Button
+                    color="info"
+                    onClick={this.clearForm}
+                    style={{ width: "100%" }}
+                  >
                     <ClearIcon /> Clear All
                   </Button>
                 </GridItem>
@@ -397,7 +398,12 @@ class AddListing extends Component {
               onClick={this.props.google}
               visible={false}
               onReady={this.initAutocomplete}
-              style={{ width: "0", height: "0", display: 'none', visiblity: 'hidden'}}
+              style={{
+                width: "0",
+                height: "0",
+                display: "none",
+                visiblity: "hidden"
+              }}
             />
           </Paper>
         )}

@@ -5,7 +5,10 @@ import { compose } from "redux";
 import Button from "../../components/CustomButtons/Button.jsx";
 import GridContainer from "../../components/Grid/GridContainer";
 import GridItem from "../../components/Grid/GridItem";
-import { updateToFirebase, deleteFromFirebase } from "../../reference/firebase/index";
+import {
+  updateToFirebase,
+  deleteFromFirebase
+} from "../../reference/firebase/index";
 import {
   Chip,
   Snackbar,
@@ -43,7 +46,7 @@ class EditListing extends Component {
     pullFromFirebase("rules", snapshot => {
       let rules = [this.state.rules];
       snapshot.forEach(item => {
-        if(!rules.includes(item)){
+        if (!rules.includes(item)) {
           rules.push(item.val());
         }
       });
@@ -83,12 +86,12 @@ class EditListing extends Component {
         uid: currentUser.uid
       }
     });
-    this.props.history.push('/admin/listings')
+    this.props.history.push("/admin/listings");
   };
 
   deleteProperty = () => {
     deleteFromFirebase(`listings/${this.state.id}`);
-    this.props.history.push('/admin/listings')
+    this.props.history.push("/admin/listings");
   };
 
   initAutocomplete = mapProps => {
@@ -231,28 +234,39 @@ class EditListing extends Component {
         {!this.props.isSignedIn ? (
           <h2>Please sign in!</h2>
         ) : (
-          <Paper style={{ width: '90%', maxWidth: '80ch', margin: '0 auto' }} elevation={1}>
+          <Paper
+            style={{ width: "90%", maxWidth: "80ch", margin: "0 auto" }}
+            elevation={1}
+          >
             <form onSubmit={this.submitForm} autoComplete="off">
               {this.snackBar()}
               <br />
-              <Typography variant="h3" style={{marginBottom: '.5em', padding: '0 1ch'}}>Listing Image</Typography>
+              <Typography
+                variant="h3"
+                style={{ marginBottom: ".5em", padding: "0 1ch" }}
+              >
+                Listing Image
+              </Typography>
               {/* https://www.npmjs.com/package/react-firebase-file-uploader */}
-                  {this.state.pic ? (
-                    <img
-                      style={{ width: "100%", height: "auto" }}
-                      src={this.state.pic}
-                      alt={`${firebase.auth().currentUser.displayName} listing`}
-                    />
-                  ) : this.state.isUploading ? (
-                        <CircularProgress color="secondary" style={{margin: '20ch auto', display: 'block'}}/> 
-                       ) : (
-                    <img
-                      style={{ width: "100%", height: "auto" }}
-                      src={placeholderImg}
-                      alt={`${firebase.auth().currentUser.displayName} listing`}
-                    />
-                  )}
-                  <GridContainer style={{padding: '1ch'}} spacing={40}>
+              {this.state.pic ? (
+                <img
+                  style={{ width: "100%", height: "auto" }}
+                  src={this.state.pic}
+                  alt={`${firebase.auth().currentUser.displayName} listing`}
+                />
+              ) : this.state.isUploading ? (
+                <CircularProgress
+                  color="secondary"
+                  style={{ margin: "20ch auto", display: "block" }}
+                />
+              ) : (
+                <img
+                  style={{ width: "100%", height: "auto" }}
+                  src={placeholderImg}
+                  alt={`${firebase.auth().currentUser.displayName} listing`}
+                />
+              )}
+              <GridContainer style={{ padding: "1ch" }} spacing={40}>
                 <GridItem xs={12}>
                   <Button
                     color="primary"
@@ -266,7 +280,7 @@ class EditListing extends Component {
                     onUploadError={this.handleUploadError}
                     onUploadSuccess={this.handleUploadSuccess}
                     onProgress={this.handleProgress}
-                    style={{width: '100%'}}
+                    style={{ width: "100%" }}
                   >
                     <AddPhotoAlternateIcon />
                     Change Photo of Your Listing
@@ -282,7 +296,7 @@ class EditListing extends Component {
                     }}
                     value={this.state.name}
                     onChange={this.inputChange}
-                    style={{width: '100%'}}
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
@@ -294,7 +308,7 @@ class EditListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.address}
-                    style={{width: '100%'}}
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
@@ -306,7 +320,7 @@ class EditListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.desc}
-                    style={{width: '100%'}}
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
 
@@ -322,8 +336,7 @@ class EditListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.rules}
-                    style={{width: '100%'}}
-
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12}>
@@ -335,8 +348,7 @@ class EditListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.price}
-                    style={{width: '100%'}}
-
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
@@ -348,8 +360,7 @@ class EditListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.type}
-                    style={{width: '100%'}}
-
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
@@ -361,17 +372,24 @@ class EditListing extends Component {
                     }}
                     onChange={this.inputChange}
                     value={this.state.rooms}
-                    style={{width: '100%'}}
-
+                    style={{ width: "100%" }}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
-                  <Button color="primary" type="submit"  style={{width: '100%'}}>
+                  <Button
+                    color="primary"
+                    type="submit"
+                    style={{ width: "100%" }}
+                  >
                     Submit Edit
                   </Button>
                 </GridItem>
                 <GridItem xs={12} sm={6}>
-                  <Button color="secondary" onClick={this.deleteProperty} style={{width: '100%'}}>
+                  <Button
+                    color="secondary"
+                    onClick={this.deleteProperty}
+                    style={{ width: "100%" }}
+                  >
                     <ClearIcon /> Delete Property
                   </Button>
                 </GridItem>
@@ -382,7 +400,12 @@ class EditListing extends Component {
               onClick={this.props.google}
               visible={false}
               onReady={this.initAutocomplete}
-              style={{ width: "0", height: "0", display: 'none', visiblity: 'hidden'}}
+              style={{
+                width: "0",
+                height: "0",
+                display: "none",
+                visiblity: "hidden"
+              }}
             />
           </Paper>
         )}

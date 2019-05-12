@@ -175,7 +175,7 @@ class HeaderLinks extends React.Component {
           aria-label="Person"
           className={classes.buttonLink}
           component={Link}
-          to="/admin/user"
+          to="/admin/user/profile"
         >
           {this.props.isSignedIn && firebase.auth().currentUser.photoURL ? (
             <img

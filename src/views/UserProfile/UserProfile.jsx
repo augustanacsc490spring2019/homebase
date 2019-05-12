@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { compose } from "redux";
 import { connect } from "react-redux";
 // @material-ui/core components
+import { Typography, Paper, Divider } from "@material-ui/core";
+import { Redirect } from "react-router-dom";
 import withStyles from "@material-ui/core/styles/withStyles";
 import PersonIcon from "@material-ui/icons/Person";
 import EmailIcon from "@material-ui/icons/Email";
@@ -14,7 +16,6 @@ import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import Primary from "components/Typography/Primary.jsx";
 
 import firebase from "../../reference/firebase";
 import {
@@ -55,18 +56,21 @@ const uiConfig = {
   }
 };
 class UserProfile extends Component {
+  state = { route: false };
   getUserInfo = () => {
-    console.log(this.props.users);
     this.props.users.forEach(item => {
-      console.log(
-        item.id + " <- item, curUser -> " + firebase.auth().currentUser.uid
-      );
       if (item.id === firebase.auth().currentUser.uid) {
         this.setState({ userInfo: item });
       }
     });
   };
 
+  componentDidMount() {
+    if (this.props.isSignedIn) {
+      this.props.fetchUsersInfo();
+      this.props.fetchCurrentUserInfo();
+    }
+  }
   componentWillReceiveProps(nextProps) {
     if (
       nextProps.isSignedIn &&
@@ -77,22 +81,37 @@ class UserProfile extends Component {
     }
   }
 
+  handleEditProfile = () => {
+    this.setState({ route: true });
+  };
+
   render() {
     const { classes } = this.props;
     const currentUser = firebase.auth().currentUser;
     const userInfo = this.props.curUser;
+    if (this.state.route) {
+      return <Redirect push exact to="/admin/user/edit" />;
+    }
     return (
       <div>
         {!this.props.isSignedIn ? (
-          <div>
-            <Primary>
-              You are not signed in. Please sign in to join the market!
-            </Primary>
-            <StyledFirebaseAuth
-              uiConfig={uiConfig}
-              firebaseAuth={firebase.auth()}
-            />
-          </div>
+          <Paper>
+            <GridContainer spacing={24}>
+              <GridItem xs={12} sm={12} md={12}>
+                <Typography variant="h4" style={{ padding: "20px" }}>
+                  JOIN THE MARKET NOW!
+                </Typography>
+                <Divider variant="middle" />
+              </GridItem>
+
+              <GridItem xs={12} sm={12} md={12}>
+                <StyledFirebaseAuth
+                  uiConfig={uiConfig}
+                  firebaseAuth={firebase.auth()}
+                />
+              </GridItem>
+            </GridContainer>
+          </Paper>
         ) : (
           <GridContainer spacing={24}>
             <GridItem xs={12} sm={12} md={12}>
@@ -119,7 +138,11 @@ class UserProfile extends Component {
                 </CardAvatar>
                 <CardBody profile>
                   <GridItem xs={12} sm={12} md={12}>
-                    <Button color="primary" round>
+                    <Button
+                      color="primary"
+                      round
+                      onClick={this.handleEditProfile}
+                    >
                       <EditIcon />
                       Edit Profile
                     </Button>
