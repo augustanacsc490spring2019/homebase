@@ -75,18 +75,26 @@ class PropertyItem extends React.Component {
                 <Typography component="p">{description}</Typography>
               </Link>
               <GridContainer justify="space-between" alignItems="center">
-                <Link
+                {/* <Link
                   to={{
                     pathname: `/admin/listings/edit/${id}`, //path => /admin/listings/:id
                     state: {
                       info
                     }
                   }}
-                >
-                  <Button variant="contained" color="primary" className={classes.button}>
+                >     this.props.history.push("/admin/listings");
+*/}
+                  <Button variant="contained" color="primary" className={classes.button} onClick={()=> {
+                    this.props.history.push({
+                      pathname:  `/admin/listings/edit/${id}`,
+                      state: {
+                        info
+                      }
+                    })
+                  }}>
                     Edit
                     </Button>
-                </Link>
+                {/* </Link> */}
                 <Button onClick={()=> deleteFromFirebase(`/listings/${id}`)} variant="contained" color="secondary" className={classes.button}>
                   Delete
                   </Button>
