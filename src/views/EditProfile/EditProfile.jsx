@@ -42,16 +42,16 @@ const styles = {
   }
 };
 
-const uiConfig = {
-  signInFlow: "popup",
-  signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID
-  ],
-  callbacks: {
-    signInSuccess: () => false
-  }
-};
+// const uiConfig = {
+//   signInFlow: "popup",
+//   signInOptions: [
+//     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+//     firebase.auth.EmailAuthProvider.PROVIDER_ID
+//   ],
+//   callbacks: {
+//     signInSuccess: () => false
+//   }
+// };
 class UserProfile extends Component {
   state = {
     cancel: false,
@@ -97,7 +97,6 @@ class UserProfile extends Component {
   render() {
     const { classes } = this.props;
     const currentUser = firebase.auth().currentUser;
-    const userInfo = this.props.curUser;
     if (this.state.cancel) {
       return <Redirect push exact to="/admin/user/profile" />;
     }
