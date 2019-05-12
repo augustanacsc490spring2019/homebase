@@ -13,6 +13,7 @@ import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 import Button from "@material-ui/core/Button";
 import { withStyles } from '@material-ui/core/styles';
 import { deleteFromFirebase } from "../reference/firebase/index";
+import { CardActions } from "@material-ui/core";
 const styles = theme => ({
   button: {
     margin: theme.spacing.unit,
@@ -25,8 +26,13 @@ class PropertyItem extends React.Component {
     const { media } = styles;
     return (
       <GridItem xs={12} sm={6} md={3} style={{ margin: "1em 0" }}>
-        <Card className={card}>
-          <CardActionArea>
+        <Card style={{ backgroundColor: '#ffffff' }} className={card}>
+          <CardActionArea component={Link} to={{
+        pathname: `/admin/listings/view/${id}`, //path => /admin/listings/:id
+        state: {
+          info
+        }
+      }}>
 
             <CardMedia
               component="img"
@@ -41,59 +47,52 @@ class PropertyItem extends React.Component {
               style={media}
             />
             <CardContent>
-              <Link
-                to={{
-                  pathname: `/admin/listings/view/${id}`, //path => /admin/listings/:id
+              <Typography gutterBottom variant="h5" component="h2">
+                {address}
+              </Typography>
+              <GridContainer justify="flex-start" alignItems="center">
+                <Typography component="p" style={{ margin: "1em" }}>
+                  <DescriptionIcon color="primary" />
+                  {description}
+                </Typography>
+              </GridContainer>
+
+              <GridContainer justify="flex-start" alignItems="center">
+                <Typography component="p" style={{ margin: "1em" }}>
+                  <MoneyIcon color="primary" />
+                  {price}
+                </Typography>
+              </GridContainer>
+
+              <GridContainer justify="flex-start" alignItems="center">
+                <Typography component="p" style={{ margin: "1em" }}>
+                  <MeetingRoomIcon color="primary" />
+                  {rooms}
+                </Typography>
+              </GridContainer>
+              <Typography component="p">{description}</Typography>
+
+            </CardContent>
+          </CardActionArea>
+          <CardActions>
+            <GridContainer justify="space-around" alignItems="center" style={{width: '113%'}}>
+
+
+              <Button variant="contained" color="primary"
+                component={Link} to={{
+                  pathname: `/admin/listings/edit/${id}`, //path => /admin/listings/:id
                   state: {
                     info
                   }
                 }}
               >
-                <Typography gutterBottom variant="h5" component="h2">
-                  {address}
-                </Typography>
-                <GridContainer justify="flex-start" alignItems="center">
-                  <Typography component="p" style={{ margin: "1em" }}>
-                    <DescriptionIcon color="primary" />
-                    {description}
-                  </Typography>
-                </GridContainer>
-
-                <GridContainer justify="flex-start" alignItems="center">
-                  <Typography component="p" style={{ margin: "1em" }}>
-                    <MoneyIcon color="primary" />
-                    {price}
-                  </Typography>
-                </GridContainer>
-
-                <GridContainer justify="flex-start" alignItems="center">
-                  <Typography component="p" style={{ margin: "1em" }}>
-                    <MeetingRoomIcon color="primary" />
-                    {rooms}
-                  </Typography>
-                </GridContainer>
-                <Typography component="p">{description}</Typography>
-              </Link>
-              <GridContainer justify="space-between" alignItems="center">
-                <Link
-                  to={{
-                    pathname: `/admin/listings/edit/${id}`, //path => /admin/listings/:id
-                    state: {
-                      info
-                    }
-                  }}
-                >    
-
-                  <Button variant="contained" color="primary" className={classes.button}>
-                    Edit
-                    </Button>
-                </Link>
-                <Button onClick={()=> deleteFromFirebase(`/listings/${id}`)} variant="contained" color="secondary" className={classes.button}>
-                  Delete
-                  </Button>
-              </GridContainer>
-            </CardContent>
-          </CardActionArea>
+                Edit
+              </Button>
+              <Button onClick={() => deleteFromFirebase(`/listings/${id}`)} variant="contained" color="secondary">
+                Delete
+              </Button>
+            </GridContainer>
+          </CardActions>
         </Card>
       </GridItem>
     );

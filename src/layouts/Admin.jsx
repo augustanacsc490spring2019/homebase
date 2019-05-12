@@ -13,7 +13,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Navbar from "components/Navbars/Navbar.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
-import posed, { PoseGroup } from "react-pose";
 
 import routes from "routes.js";
 
@@ -24,10 +23,6 @@ import { logIn, logOut } from "../reference/redux/actions/userAction";
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
-const RouteContainer = posed.div({
-  enter: { opacity: 1, delay: 300, beforeChildren: true },
-  exit: { opacity: 0 }
-});
 
 const switchRoutes = (
   <Switch location={location}>

@@ -1,6 +1,5 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // import ListItem from "@material-ui/core/ListItem";
@@ -26,9 +25,5 @@ function Footer({ ...props }) {
     </footer>
   );
 }
-
-Footer.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(footerStyle)(Footer);

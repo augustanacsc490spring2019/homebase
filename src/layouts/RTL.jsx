@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React from "react";
-import PropTypes from "prop-types";
 import { Switch, Route, Redirect } from "react-router-dom";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
@@ -134,8 +133,5 @@ class RTL extends React.Component {
   }
 }
 
-RTL.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(rtlStyle)(RTL);

@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { compose } from "redux";
 import { connect } from "react-redux";
 // @material-ui/core components
@@ -88,10 +87,6 @@ class HeaderLinks extends React.Component {
     );
   }
 }
-
-HeaderLinks.propTypes = {
-  isSignedIn: PropTypes.bool.isRequired
-};
 
 const mapStateToProps = state => ({
   isSignedIn: state.signInState.isSignedIn

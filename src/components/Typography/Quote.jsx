@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // core components
@@ -14,11 +13,5 @@ function Quote({ ...props }) {
     </blockquote>
   );
 }
-
-Quote.propTypes = {
-  classes: PropTypes.object.isRequired,
-  text: PropTypes.node,
-  author: PropTypes.node
-};
 
 export default withStyles(typographyStyle)(Quote);

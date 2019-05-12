@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import Hidden from "@material-ui/core/Hidden";
@@ -63,9 +62,5 @@ function Icons(props) {
     </GridContainer>
   );
 }
-
-Icons.propTypes = {
-  classes: PropTypes.object.isRequired
-};
 
 export default withStyles(iconsStyle)(Icons);

@@ -240,7 +240,6 @@ class AddListing extends Component {
   });
 
   render() {
-    console.log(this.state.rulesList);
     return (
       <>
         {!this.props.isSignedIn ? (

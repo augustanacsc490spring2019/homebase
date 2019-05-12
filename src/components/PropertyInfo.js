@@ -10,7 +10,6 @@ export default class PropertyInfo extends Component {
         }
     }
   render() {
-    console.log(this.state)
     return (
       <Card style={{width: 'auto', height: 'auto', margin: '0 auto'}}>
         <CardMedia
