@@ -86,12 +86,12 @@ class EditListing extends Component {
         uid: currentUser.uid
       }
     });
-    this.props.history.push("/admin/listings");
+    this.props.history.push("/admin/listings/current");
   };
 
   deleteProperty = () => {
     deleteFromFirebase(`listings/${this.state.id}`);
-    this.props.history.push("/admin/listings");
+    this.props.history.push("/admin/listings/current");
   };
 
   initAutocomplete = mapProps => {
@@ -185,7 +185,7 @@ class EditListing extends Component {
           button
           onClick={this.handleToggle(rule)}
         >
-          <Checkbox checked={this.state.selectedRules.indexOf(rule) > -1} />
+          <Checkbox checked={this.state.rulesList.includes(rule)} />
           <ListItemText primary={rule} />
         </ListItem>
       ))}
@@ -291,7 +291,7 @@ class EditListing extends Component {
                   <TextField
                     label="Name"
                     id="name"
-                    formControlProps={{
+                    formcontrolprops={{
                       fullWidth: true
                     }}
                     value={this.state.name}
@@ -303,7 +303,7 @@ class EditListing extends Component {
                   <TextField
                     label="Address"
                     id="address"
-                    formControlProps={{
+                    formcontrolprops={{
                       fullWidth: true
                     }}
                     onChange={this.inputChange}
@@ -315,7 +315,7 @@ class EditListing extends Component {
                   <TextField
                     label="Description"
                     id="desc"
-                    formControlProps={{
+                    formcontrolprops={{
                       fullWidth: true
                     }}
                     onChange={this.inputChange}
@@ -331,7 +331,7 @@ class EditListing extends Component {
                   <TextField
                     label="Rules"
                     id="rules"
-                    formControlProps={{
+                    formcontrolprops={{
                       fullWidth: true
                     }}
                     onChange={this.inputChange}
@@ -343,7 +343,7 @@ class EditListing extends Component {
                   <TextField
                     label="Price"
                     id="price"
-                    formControlProps={{
+                    formcontrolprops={{
                       fullWidth: true
                     }}
                     onChange={this.inputChange}
@@ -355,7 +355,7 @@ class EditListing extends Component {
                   <TextField
                     label="Type"
                     id="type"
-                    formControlProps={{
+                    formcontrolprops={{
                       fullWidth: true
                     }}
                     onChange={this.inputChange}
@@ -367,7 +367,7 @@ class EditListing extends Component {
                   <TextField
                     label="Rooms"
                     id="rooms"
-                    formControlProps={{
+                    formcontrolprops={{
                       fullWidth: true
                     }}
                     onChange={this.inputChange}
