@@ -68,8 +68,10 @@ export default class LocationSearchInput extends React.Component {
             {({ getInputProps, suggestions, getSuggestionItemProps }) => (
               <div>
                 <TextField
+                  required
+                  style={{ width: "100%" }}
                   {...getInputProps({
-                    placeholder: "Search Places ...",
+                    placeholder: "Address*",
                     className: "location-search-input",
                     id: this.props.id
                   })}
