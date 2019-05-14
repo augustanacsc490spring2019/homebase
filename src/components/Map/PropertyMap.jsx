@@ -3,11 +3,14 @@ import GoogleMapReact from "google-map-react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { TIMEOUT } from "dns";
 
+const Marker = () => <LocationOnIcon color="secondary" />;
+
 export class MapContainer extends Component {
   constructor(props) {
     super(props);
     this.props = props;
   }
+
   render() {
     return (
       <div style={{ height: this.props.height, width: this.props.width }}>
@@ -17,11 +20,7 @@ export class MapContainer extends Component {
           defaultZoom={this.props.zoom}
           options={{ fullscreenControl: false, gestureHandling: "cooperative" }}
         >
-          <LocationOnIcon
-            lat={this.props.lat}
-            lng={this.props.lng}
-            color="secondary"
-          />
+          <Marker lat={this.props.lat} lng={this.props.lng} />
         </GoogleMapReact>
       </div>
     );
