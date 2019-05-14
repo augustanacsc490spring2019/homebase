@@ -329,7 +329,7 @@ class AddListing extends Component {
                   /> */}
                   <MapAutocomplete
                     required
-                    lavel="Address"
+                    label="Address"
                     value={this.state.address}
                     id="address"
                     onChange={this.inputChange}

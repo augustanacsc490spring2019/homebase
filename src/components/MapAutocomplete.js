@@ -121,12 +121,12 @@ class LocationSearchInput extends React.Component {
     );
   }
 }
-LocationSearchInput.propTypes = {
-  address: PropTypes.string.isRequired,
-  location: PropTypes.object.isRequired,
-  setAddress: PropTypes.func.isRequired,
-  setPos: PropTypes.func.isRequired
-};
+// LocationSearchInput.propTypes = {
+//   address: PropTypes.string.isRequired,
+//   location: PropTypes.object.isRequired,
+//   setAddress: PropTypes.func.isRequired,
+//   setPos: PropTypes.func.isRequired
+// };
 const mapStateToProps = state => ({
   address: state.formState.address,
   position: state.formState.position

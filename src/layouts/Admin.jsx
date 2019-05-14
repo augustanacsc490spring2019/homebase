@@ -85,14 +85,6 @@ class Dashboard extends React.Component {
     firebase.auth().onAuthStateChanged(user => {
       !!user ? this.props.logIn() : this.props.logOut();
     });
-
-    const script = document.createElement("script");
-
-    script.src =
-      "https://maps.googleapis.com/maps/api/js?key=AIzaSyBNA4QW8E2kzYU_6eR7QmikowbqB3EupJc&libraries=places";
-    script.async = true;
-
-    document.body.appendChild(script);
   }
   componentDidUpdate(e) {
     if (e.history.location.pathname !== e.location.pathname) {
