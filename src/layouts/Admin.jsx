@@ -23,11 +23,10 @@ import { logIn, logOut } from "../reference/redux/actions/userAction";
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
-
 const switchRoutes = (
   <Switch location={location}>
     {routes.map((prop, key) => {
-      const {layout, path, component } = prop;
+      const { layout, path, component } = prop;
       if (layout === "/admin") {
         return (
           <Route
@@ -86,6 +85,14 @@ class Dashboard extends React.Component {
     firebase.auth().onAuthStateChanged(user => {
       !!user ? this.props.logIn() : this.props.logOut();
     });
+
+    const script = document.createElement("script");
+
+    script.src =
+      "https://maps.googleapis.com/maps/api/js?key=AIzaSyBNA4QW8E2kzYU_6eR7QmikowbqB3EupJc&libraries=places";
+    script.async = true;
+
+    document.body.appendChild(script);
   }
   componentDidUpdate(e) {
     if (e.history.location.pathname !== e.location.pathname) {

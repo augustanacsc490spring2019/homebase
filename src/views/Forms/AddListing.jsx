@@ -25,9 +25,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import ClearIcon from "@material-ui/icons/Clear";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
-import { Map, GoogleApiWrapper } from "google-maps-react";
 import firebase, { pullFromFirebase } from "../../reference/firebase";
 import placeholderImg from "../../assets/img/placeholderImg.jpg";
+import MapAutocomplete from "../../components/MapAutocomplete";
 
 const defaultState = {
   name: "",
@@ -98,35 +98,37 @@ class AddListing extends Component {
       }
     });
     this.setState({ ...defaultState, snackbarOpen: true });
-    return <Route path={"/admin/listings/current"} component={PropertiesPage} />;
+    return (
+      <Route path={"/admin/listings/current"} component={PropertiesPage} />
+    );
   };
 
   clearForm = e => {
     this.setState({ ...defaultState, snackbarOpen: false });
   };
 
-  initAutocomplete = mapProps => {
-    const { google } = mapProps;
-    // var options = {
-    //   types: ["(cities)"],
-    //   componentRestrictions: { country: "us" }
-    // };
-    this.autoComplete = new google.maps.places.Autocomplete(
-      document.getElementById("address")
-      // options
-    );
-    this.autoComplete.setFields(["geometry", "formatted_address"]);
-    this.autoComplete.addListener("place_changed", () => {
-      const place = this.autoComplete.getPlace();
-      this.setState({
-        address: place.formatted_address
-      });
-      document.getElementById("address").value = place.formatted_address;
-      if (place.geometry) {
-        // TODO: change the state accordingly
-      }
-    });
-  };
+  // initAutocomplete = mapProps => {
+  //   const { google } = mapProps;
+  //   // var options = {
+  //   //   types: ["(cities)"],
+  //   //   componentRestrictions: { country: "us" }
+  //   // };
+  //   this.autoComplete = new google.maps.places.Autocomplete(
+  //     document.getElementById("address")
+  //     // options
+  //   );
+  //   this.autoComplete.setFields(["geometry", "formatted_address"]);
+  //   this.autoComplete.addListener("place_changed", () => {
+  //     const place = this.autoComplete.getPlace();
+  //     this.setState({
+  //       address: place.formatted_address
+  //     });
+  //     document.getElementById("address").value = place.formatted_address;
+  //     if (place.geometry) {
+  //       // TODO: change the state accordingly
+  //     }
+  //   });
+  // };
 
   // https://www.npmjs.com/package/react-firebase-file-uploader
   handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
@@ -314,13 +316,17 @@ class AddListing extends Component {
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
-                  <TextField
+                  {/* <TextField
                     required
                     label="Address"
                     id="address"
                     onChange={this.inputChange}
                     value={this.state.address}
                     style={{ width: "100%" }}
+                  /> */}
+                  <MapAutocomplete
+                    value={this.state.address}
+                    id="addressInput"
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
@@ -396,18 +402,6 @@ class AddListing extends Component {
                 </GridItem>
               </GridContainer>
             </form>
-            <Map
-              google={this.props.google}
-              onClick={this.props.google}
-              visible={false}
-              onReady={this.initAutocomplete}
-              style={{
-                width: "0",
-                height: "0",
-                display: "none",
-                visiblity: "hidden"
-              }}
-            />
           </Paper>
         )}
       </>
@@ -422,9 +416,4 @@ const mapStateToProps = state => ({
   isSignedIn: state.signInState.isSignedIn
 });
 
-export default compose(
-  GoogleApiWrapper({
-    apiKey: process.env.REACT_APP_MAP_API_KEY
-  }),
-  connect(mapStateToProps)
-)(AddListing);
+export default compose(connect(mapStateToProps))(AddListing);
