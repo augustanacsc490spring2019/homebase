@@ -20,7 +20,9 @@ export default class LocationSearchInput extends React.Component {
   componentDidMount() {
     window.initAC = this.initAC;
     const gmapScriptEl = document.createElement(`script`);
-    gmapScriptEl.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBNA4QW8E2kzYU_6eR7QmikowbqB3EupJc&libraries=places&callback=initAC`;
+    gmapScriptEl.src = `https://maps.googleapis.com/maps/api/js?key=${
+      process.env.REACT_APP_MAP_API_KEY
+    }&libraries=places&callback=initAC`;
     document
       .querySelector(`body`)
       .insertAdjacentElement(`beforeend`, gmapScriptEl);
@@ -71,7 +73,7 @@ export default class LocationSearchInput extends React.Component {
                   required
                   style={{ width: "100%" }}
                   {...getInputProps({
-                    placeholder: "Address*",
+                    label: "Address",
                     className: "location-search-input",
                     id: this.props.id
                   })}

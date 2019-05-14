@@ -327,8 +327,11 @@ class AddListing extends Component {
                     style={{ width: "100%" }}
                   /> */}
                   <MapAutocomplete
+                    required
+                    lavel="Address"
                     value={this.state.address}
-                    id="addressInput"
+                    id="address"
+                    onChange={this.inputChange}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
