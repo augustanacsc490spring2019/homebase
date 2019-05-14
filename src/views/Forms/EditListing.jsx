@@ -26,7 +26,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import ClearIcon from "@material-ui/icons/Clear";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
-import { Map, GoogleApiWrapper } from "google-maps-react";
+// import { Map, GoogleApiWrapper } from "google-maps-react";
 import firebase, { pullFromFirebase } from "../../reference/firebase";
 import placeholderImg from "../../assets/img/placeholderImg.jpg";
 class EditListing extends Component {

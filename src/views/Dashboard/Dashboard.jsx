@@ -28,12 +28,12 @@ class Dashboard extends React.Component {
     this.state = { address: "" };
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
-
-  handleChangeIndex = index => {
-    this.setState({ value: index });
+  inputChange = e => {
+    const id = e.target.id;
+    const value = e.target.value;
+    this.setState({
+      [id]: value
+    });
   };
 
   render() {
@@ -51,8 +51,13 @@ class Dashboard extends React.Component {
           <Typography component="h2" variant="h2" gutterBottom>
             Welcome to homebase.
           </Typography>
-          {/* <MapAutocomplete value={this.state.address} id="landingInput" /> */}
-          <Button color="white" aria-label="edit" justIcon round>
+          <MapAutocomplete
+                    label="Address"
+                    value={this.state.address}
+                    id="address"
+                    onChange={this.inputChange}
+                  />
+            <Button color="white" aria-label="edit" justIcon round>
             <Search />
           </Button>
           <Button color="white" aria-label="edit" justIcon round>
