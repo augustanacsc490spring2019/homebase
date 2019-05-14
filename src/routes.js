@@ -37,7 +37,7 @@ const dashboardRoutes = [
     icon: Dashboard,
     component: PropertiesPage,
     layout: "/admin",
-    display: true
+    display: false
   },
   {
     path: "/user/profile",

@@ -62,7 +62,7 @@ class Dashboard extends React.Component {
             id="address"
             onChange={this.inputChange}
           />
-          <Button color="white" aria-label="edit" justIcon round component={Link} to={`/admin/listings/${this.props.position.lat}/${this.props.position.lng}`}>
+          <Button color="white" aria-label="edit" justIcon round component={Link} to={{pathname: `/admin/listings/${this.props.position.lat}/${this.props.position.lng}`, state: this.props.position}}>
             <Search />
           </Button>
           <Button color="white" aria-label="edit" justIcon round>
