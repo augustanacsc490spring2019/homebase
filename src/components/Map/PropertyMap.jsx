@@ -3,7 +3,12 @@ import GoogleMapReact from "google-map-react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import { TIMEOUT } from "dns";
 
-const Marker = () => <LocationOnIcon color="secondary" />;
+const Marker = () => (
+  <LocationOnIcon
+    color="secondary"
+    style={{ position: "absolute", transform: "translate(-50%, -100%)" }}
+  />
+);
 
 export class MapContainer extends Component {
   constructor(props) {

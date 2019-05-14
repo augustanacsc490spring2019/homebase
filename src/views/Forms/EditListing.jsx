@@ -26,9 +26,11 @@ import CloseIcon from "@material-ui/icons/Close";
 import ClearIcon from "@material-ui/icons/Clear";
 import AddPhotoAlternateIcon from "@material-ui/icons/AddPhotoAlternate";
 import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadButton";
-import { Map, GoogleApiWrapper } from "google-maps-react";
 import firebase, { pullFromFirebase } from "../../reference/firebase";
 import placeholderImg from "../../assets/img/placeholderImg.jpg";
+import MapAutocomplete from "../../components/MapAutocomplete";
+import { setAddress } from "../../reference/redux/actions/addListingAction";
+
 class EditListing extends Component {
   constructor(props) {
     super(props);
@@ -84,7 +86,9 @@ class EditListing extends Component {
         email: currentUser.email,
         photoURL: currentUser.photoURL,
         uid: currentUser.uid
-      }
+      },
+      address: this.props.address,
+      position: this.props.position
     });
     this.props.history.push("/admin/listings/current");
   };
@@ -92,24 +96,6 @@ class EditListing extends Component {
   deleteProperty = () => {
     deleteFromFirebase(`listings/${this.state.id}`);
     this.props.history.push("/admin/listings/current");
-  };
-
-  initAutocomplete = mapProps => {
-    const { google } = mapProps;
-    this.autoComplete = new google.maps.places.Autocomplete(
-      document.getElementById("address")
-    );
-    this.autoComplete.setFields(["geometry", "formatted_address"]);
-    this.autoComplete.addListener("place_changed", () => {
-      const place = this.autoComplete.getPlace();
-      this.setState({
-        address: place.formatted_address
-      });
-      document.getElementById("address").value = place.formatted_address;
-      if (place.geometry) {
-        // TODO: change the state accordingly
-      }
-    });
   };
 
   // https://www.npmjs.com/package/react-firebase-file-uploader
@@ -300,15 +286,12 @@ class EditListing extends Component {
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
-                  <TextField
-                    label="Address"
-                    id="address"
-                    formcontrolprops={{
-                      fullWidth: true
-                    }}
-                    onChange={this.inputChange}
+                  <MapAutocomplete
+                    required
+                    lavel="Address"
                     value={this.state.address}
-                    style={{ width: "100%" }}
+                    id="address"
+                    onChange={this.inputChange}
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
@@ -395,18 +378,6 @@ class EditListing extends Component {
                 </GridItem>
               </GridContainer>
             </form>
-            <Map
-              google={this.props.google}
-              onClick={this.props.google}
-              visible={false}
-              onReady={this.initAutocomplete}
-              style={{
-                width: "0",
-                height: "0",
-                display: "none",
-                visiblity: "hidden"
-              }}
-            />
           </Paper>
         )}
       </>
@@ -415,15 +386,20 @@ class EditListing extends Component {
 }
 
 EditListing.propTypes = {
-  isSignedIn: PropTypes.bool.isRequired
+  isSignedIn: PropTypes.bool.isRequired,
+  address: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
+  setAddress: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  isSignedIn: state.signInState.isSignedIn
+  isSignedIn: state.signInState.isSignedIn,
+  address: state.formState.address,
+  position: state.formState.position
 });
 
 export default compose(
-  GoogleApiWrapper({
-    apiKey: process.env.REACT_APP_MAP_API_KEY
-  }),
-  connect(mapStateToProps)
+  connect(
+    mapStateToProps,
+    { setAddress }
+  )
 )(EditListing);
