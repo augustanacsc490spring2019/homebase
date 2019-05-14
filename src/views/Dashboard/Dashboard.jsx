@@ -40,6 +40,14 @@ class Dashboard extends React.Component {
     return (
       <div>
         <center>
+          <img
+            src={require("../../assets/img/homebaselogo.png")}
+            alt="logo"
+            style={{
+              width: 200,
+              height: 200
+            }}
+          />
           <Typography component="h2" variant="h2" gutterBottom>
             Welcome to homebase.
           </Typography>
