@@ -28,6 +28,7 @@ import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadBut
 import { Map, GoogleApiWrapper } from "google-maps-react";
 import firebase, { pullFromFirebase } from "../../reference/firebase";
 import placeholderImg from "../../assets/img/placeholderImg.jpg";
+import MapAutocomplete from "../../components/MapAutocomplete";
 
 const defaultState = {
   name: "",
@@ -98,14 +99,16 @@ class AddListing extends Component {
       }
     });
     this.setState({ ...defaultState, snackbarOpen: true });
-    return <Route path={"/admin/listings/current"} component={PropertiesPage} />;
+    return (
+      <Route path={"/admin/listings/current"} component={PropertiesPage} />
+    );
   };
 
   clearForm = e => {
     this.setState({ ...defaultState, snackbarOpen: false });
   };
 
-  initAutocomplete = mapProps => {
+  /* initAutocomplete = mapProps => {
     const { google } = mapProps;
     this.autoComplete = new google.maps.places.Autocomplete(
       document.getElementById("address")
@@ -121,7 +124,7 @@ class AddListing extends Component {
         // TODO: change the state accordingly
       }
     });
-  };
+  }; */
 
   // https://www.npmjs.com/package/react-firebase-file-uploader
   handleUploadStart = () => this.setState({ isUploading: true, progress: 0 });
@@ -309,13 +312,18 @@ class AddListing extends Component {
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>
-                  <TextField
+                  {/* <TextField
                     required
                     label="Address"
                     id="address"
                     onChange={this.inputChange}
                     value={this.state.address}
                     style={{ width: "100%" }}
+                  /> */}
+                  <MapAutocomplete
+                    onChange={this.inputChange}
+                    value={this.state.address}
+                    id="addressInput"
                   />
                 </GridItem>
                 <GridItem xs={12} sm={6}>

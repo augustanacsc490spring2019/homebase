@@ -11,6 +11,7 @@ import Location from "@material-ui/icons/LocationOn";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Typography from "@material-ui/core/Typography";
+import MapAutocomplete from "../../components/MapAutocomplete";
 
 // import { bugs, website, server } from "variables/general.jsx";
 
@@ -33,6 +34,7 @@ class Dashboard extends React.Component {
   handleChangeIndex = index => {
     this.setState({ value: index });
   };
+
   render() {
     const { classes } = this.props;
     return (
@@ -41,7 +43,8 @@ class Dashboard extends React.Component {
           <Typography component="h2" variant="h2" gutterBottom>
             Welcome to homebase.
           </Typography>
-          <CustomInput
+          <MapAutocomplete />
+          {/* <CustomInput
             formControlProps={{
               className: classes.margin + " " + classes.search
             }}
@@ -51,7 +54,7 @@ class Dashboard extends React.Component {
                 "aria-label": "Search"
               }
             }}
-          />
+          /> */}
           <Button color="white" aria-label="edit" justIcon round>
             <Search />
           </Button>

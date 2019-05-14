@@ -15,13 +15,21 @@ import "assets/css/material-dashboard-react.css?v=1.6.0";
 const hist = createBrowserHistory({
   basename: process.env.PUBLIC_URL
 });
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={hist}>
       <Switch>
         <Route path="/admin" component={withRouter(Admin)} />
-        <Route path="/admin/listings/view/:id" component={withRouter(PropertyInfo)} />
-        <Redirect from="/" to="/admin/landing" component={withRouter(Dashboard)} />
+        <Route
+          path="/admin/listings/view/:id"
+          component={withRouter(PropertyInfo)}
+        />
+        <Redirect
+          from="/"
+          to="/admin/landing"
+          component={withRouter(Dashboard)}
+        />
       </Switch>
     </Router>
   </Provider>,
