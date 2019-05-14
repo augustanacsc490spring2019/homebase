@@ -61,7 +61,8 @@ class Properties extends Component {
             id={listing.id}
             key={key}
             imagePath={listing.pic}
-            address={listing.name}
+            name={listing.name}
+            address={listing.address}
             lat={listing.lat}
             lng={listing.lng}
             price={listing.price}

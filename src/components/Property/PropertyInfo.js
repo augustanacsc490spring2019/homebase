@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Card from "@material-ui/core/Card";
-import { Typography, CardMedia, CardContent } from "@material-ui/core";
+import { Typography, CardMedia, CardContent, Divider } from "@material-ui/core";
+import GridContainer from "../Grid/GridContainer";
+import GridItem from "../Grid/GridItem";
 import PropertyMap from "../Map/PropertyMap";
 
 export default class PropertyInfo extends Component {
@@ -22,43 +24,74 @@ export default class PropertyInfo extends Component {
           title={this.state.address}
         />
         <CardContent style={{ padding: "1em" }}>
-          <PropertyMap
-            zoom={17}
-            width="60%"
-            height="300px"
-            lat={this.state.position.lat}
-            lng={this.state.position.lng}
-          />
-          <Typography variant="h1">{this.state.name}</Typography>
-          <Typography variant="h2">{this.state.desc}</Typography>
-          <Typography variant="body1">
-            <strong>Owner: </strong>
-            {this.state.owner.displayName}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Address: </strong>
-            {this.state.address}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Status: </strong>
-            {this.state.status}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Number of Rooms: </strong>
-            {this.state.rooms}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Type: </strong>
-            {this.state.type}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Rules: </strong>
-            {this.state.rules}
-          </Typography>
-          <Typography variant="body1">
-            <strong>Price: </strong>
-            {this.state.price}
-          </Typography>
+          <GridContainer spacing={24}>
+            <GridItem xs={12} sm={2} md={2}>
+              <img
+                src={this.state.owner.photoURL}
+                alt="avatar"
+                width="100"
+                height="100"
+                style={{
+                  borderRadius: "50%"
+                }}
+              />
+              <Typography variant="subtitle1">
+                {this.state.owner.displayName}
+              </Typography>
+            </GridItem>
+            <GridItem xs={12} sm={10} md={10}>
+              <Typography variant="h3">{this.state.name}</Typography>
+              <Typography variant="subtitle1">{this.state.desc}</Typography>
+            </GridItem>
+
+            <GridItem xs={12} sm={12} md={12}>
+              <Divider variant="middle" />
+              <PropertyMap
+                style={{ margin: "20px" }}
+                zoom={17}
+                width="60%"
+                height="300px"
+                lat={this.state.position.lat}
+                lng={this.state.position.lng}
+              />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={12}>
+              <Typography variant="body1">
+                <strong>Address: </strong>
+                {this.state.address}
+              </Typography>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={12}>
+              <Typography variant="body1">
+                <strong>Status: </strong>
+                {this.state.status}
+              </Typography>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={12}>
+              <Typography variant="body1">
+                <strong>Number of Rooms: </strong>
+                {this.state.rooms}
+              </Typography>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={12}>
+              <Typography variant="body1">
+                <strong>Type: </strong>
+                {this.state.type}
+              </Typography>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={12}>
+              <Typography variant="body1">
+                <strong>Rules: </strong>
+                {this.state.rules}
+              </Typography>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={12}>
+              <Typography variant="body1">
+                <strong>Price: </strong>
+                {this.state.price}
+              </Typography>
+            </GridItem>
+          </GridContainer>
         </CardContent>
       </Card>
     );
