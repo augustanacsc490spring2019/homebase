@@ -395,7 +395,7 @@ class EditListing extends Component {
                 </GridItem>
               </GridContainer>
             </form>
-            <Map
+            {/* <Map
               google={this.props.google}
               onClick={this.props.google}
               visible={false}
@@ -406,7 +406,7 @@ class EditListing extends Component {
                 display: "none",
                 visiblity: "hidden"
               }}
-            />
+            /> */}
           </Paper>
         )}
       </>
@@ -422,8 +422,5 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-  GoogleApiWrapper({
-    apiKey: process.env.REACT_APP_MAP_API_KEY
-  }),
   connect(mapStateToProps)
 )(EditListing);

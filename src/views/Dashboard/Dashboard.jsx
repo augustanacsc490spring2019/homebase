@@ -51,7 +51,7 @@ class Dashboard extends React.Component {
           <Typography component="h2" variant="h2" gutterBottom>
             Welcome to homebase.
           </Typography>
-          <MapAutocomplete value={this.state.address} id="landingInput" />
+          {/* <MapAutocomplete value={this.state.address} id="landingInput" /> */}
           <Button color="white" aria-label="edit" justIcon round>
             <Search />
           </Button>
