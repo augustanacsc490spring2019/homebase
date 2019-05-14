@@ -8,7 +8,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // import GridContainer from "components/Grid/GridContainer.jsx";
 import Search from "@material-ui/icons/Search";
 import Location from "@material-ui/icons/LocationOn";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Typography from "@material-ui/core/Typography";
 import MapAutocomplete from "../../components/MapAutocomplete";
@@ -24,9 +23,11 @@ import MapAutocomplete from "../../components/MapAutocomplete";
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 class Dashboard extends React.Component {
-  state = {
-    value: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = { address: "" };
+  }
+
   handleChange = (event, value) => {
     this.setState({ value });
   };
@@ -36,25 +37,13 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <center>
           <Typography component="h2" variant="h2" gutterBottom>
             Welcome to homebase.
           </Typography>
-          <MapAutocomplete />
-          {/* <CustomInput
-            formControlProps={{
-              className: classes.margin + " " + classes.search
-            }}
-            inputProps={{
-              placeholder: "Search",
-              inputProps: {
-                "aria-label": "Search"
-              }
-            }}
-          /> */}
+          <MapAutocomplete value={this.state.address} id="landingInput" />
           <Button color="white" aria-label="edit" justIcon round>
             <Search />
           </Button>

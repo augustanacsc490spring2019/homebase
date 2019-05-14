@@ -8,7 +8,7 @@ import PlacesAutocomplete, {
 export default class LocationSearchInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { address: "" };
+    this.state = { address: "", id: this.props.id };
   }
 
   handleChange = address => {
@@ -19,8 +19,9 @@ export default class LocationSearchInput extends React.Component {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
       .then(latLng => console.log("Success", latLng))
+      .then((document.getElementById(this.props.id).value = this.state.address))
+      .then(this.setState({ address }))
       .catch(error => console.error("Error", error));
-    document.getElementById("addressInput").value = address;
   };
 
   render() {
@@ -36,7 +37,7 @@ export default class LocationSearchInput extends React.Component {
               {...getInputProps({
                 placeholder: "Search Places ...",
                 className: "location-search-input",
-                id: "addressInput"
+                id: this.props.id
               })}
             />
             <div className="autocomplete-dropdown-container">
