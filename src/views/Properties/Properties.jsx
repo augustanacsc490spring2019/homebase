@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import PropertyItem from "../../components/PropertyItem";
+import PropertyItem from "../../components/Property/PropertyItem";
 // import ModalInfo from "../../components/ModalInfo";
 // import { bugs, website, server } from "variables/general.jsx";
 import { pullFromFirebase } from "../../reference/firebase";
@@ -42,6 +42,8 @@ class Properties extends Component {
             key={key}
             imagePath={listing.pic}
             address={listing.name}
+            lat={listing.lat}
+            lng={listing.lng}
             price={listing.price}
             rooms={listing.rooms}
             description={listing.desc}

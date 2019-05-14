@@ -32,6 +32,8 @@ import MapAutocomplete from "../../components/MapAutocomplete";
 const defaultState = {
   name: "",
   address: "",
+  lat: 0,
+  lng: 0,
   desc: "",
   rules: "",
   price: "",

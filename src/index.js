@@ -8,7 +8,7 @@ import store from "./reference/redux/store.jsx";
 // core components
 import Admin from "layouts/Admin.jsx";
 import Dashboard from "./views/Dashboard/Dashboard";
-import PropertyInfo from "./components/PropertyInfo";
+import PropertyInfo from "./components/Property/PropertyInfo";
 
 import "assets/css/material-dashboard-react.css?v=1.6.0";
 
