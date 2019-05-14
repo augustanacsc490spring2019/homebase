@@ -26,8 +26,8 @@ export default class PropertyInfo extends Component {
             zoom={17}
             width="60%"
             height="300px"
-            lat={this.state.lat}
-            lng={this.state.lng}
+            lat={this.state.position.lat}
+            lng={this.state.position.lng}
           />
           <Typography variant="h1">{this.state.name}</Typography>
           <Typography variant="h2">{this.state.desc}</Typography>

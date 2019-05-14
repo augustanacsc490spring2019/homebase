@@ -1,14 +1,26 @@
 import React from "react";
+import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng
 } from "react-places-autocomplete";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import {
+  setAddress,
+  setPos
+} from "../reference/redux/actions/addListingAction";
 
-export default class LocationSearchInput extends React.Component {
+class LocationSearchInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { address: "", id: this.props.id, gmapsLoaded: false };
+    this.state = {
+      address: "",
+      position: { lat: 0, lng: 0 },
+      id: this.props.id,
+      gmapsLoaded: false
+    };
   }
 
   initAC = () => {
@@ -46,15 +58,17 @@ export default class LocationSearchInput extends React.Component {
   }
 
   handleChange = address => {
+    this.props.setAddress(address);
     this.setState({ address });
   };
 
   handleSelect = address => {
     geocodeByAddress(address)
       .then(results => getLatLng(results[0]))
-      .then(latLng => console.log("Success", latLng))
-      .then((document.getElementById(this.props.id).value = this.state.address))
-      .then(this.setState({ address }))
+      .then(latLng => this.props.setPos(latLng.lat, latLng.lng))
+      .then((document.getElementById(this.props.id).value = this.props.address))
+      .then(this.props.setAddress(address))
+      .then(this.setState({ address: address }))
       .catch(error => console.error("Error", error));
   };
 
@@ -107,3 +121,20 @@ export default class LocationSearchInput extends React.Component {
     );
   }
 }
+LocationSearchInput.propTypes = {
+  address: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
+  setAddress: PropTypes.func.isRequired,
+  setPos: PropTypes.func.isRequired
+};
+const mapStateToProps = state => ({
+  address: state.formState.address,
+  position: state.formState.position
+});
+
+export default compose(
+  connect(
+    mapStateToProps,
+    { setAddress, setPos }
+  )
+)(LocationSearchInput);

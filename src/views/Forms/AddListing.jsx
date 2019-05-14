@@ -28,12 +28,10 @@ import CustomUploadButton from "react-firebase-file-uploader/lib/CustomUploadBut
 import firebase, { pullFromFirebase } from "../../reference/firebase";
 import placeholderImg from "../../assets/img/placeholderImg.jpg";
 import MapAutocomplete from "../../components/MapAutocomplete";
+import { setAddress } from "../../reference/redux/actions/addListingAction";
 
 const defaultState = {
   name: "",
-  address: "",
-  lat: 0,
-  lng: 0,
   desc: "",
   rules: "",
   price: "",
@@ -97,7 +95,9 @@ class AddListing extends Component {
         email: currentUser.email,
         photoURL: currentUser.photoURL,
         uid: currentUser.uid
-      }
+      },
+      address: this.props.address,
+      position: this.props.position
     });
     this.setState({ ...defaultState, snackbarOpen: true });
     return (
@@ -107,6 +107,7 @@ class AddListing extends Component {
 
   clearForm = e => {
     this.setState({ ...defaultState, snackbarOpen: false });
+    this.props.setAddress("");
   };
 
   // initAutocomplete = mapProps => {
@@ -415,10 +416,20 @@ class AddListing extends Component {
 }
 
 AddListing.propTypes = {
-  isSignedIn: PropTypes.bool.isRequired
+  isSignedIn: PropTypes.bool.isRequired,
+  address: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
+  setAddress: PropTypes.func.isRequired
 };
 const mapStateToProps = state => ({
-  isSignedIn: state.signInState.isSignedIn
+  isSignedIn: state.signInState.isSignedIn,
+  address: state.formState.address,
+  position: state.formState.position
 });
 
-export default compose(connect(mapStateToProps))(AddListing);
+export default compose(
+  connect(
+    mapStateToProps,
+    { setAddress }
+  )
+)(AddListing);
