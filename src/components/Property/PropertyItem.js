@@ -10,6 +10,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import DescriptionIcon from "@material-ui/icons/Description";
 import MoneyIcon from "@material-ui/icons/Money";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
 import { deleteFromFirebase } from "../../reference/firebase/index";
@@ -24,6 +25,7 @@ class PropertyItem extends React.Component {
     const {
       id,
       info,
+      name,
       classes,
       address,
       styles,
@@ -49,18 +51,18 @@ class PropertyItem extends React.Component {
             <CardMedia
               component="img"
               className={media}
-              height="100%"
-              width="100%"
+              height="200px"
+              width="auto"
               image={
                 imagePath ||
                 "https://firebasestorage.googleapis.com/v0/b/homebase-3336e.appspot.com/o/placeholderImg.jpg?alt=media&token=13b6c9e5-7fdf-4955-a46f-a55d34f6f4b6"
               }
-              title={address}
+              title={name}
               style={media}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                {address}
+                {name}
               </Typography>
               <GridContainer justify="flex-start" alignItems="center">
                 <Typography component="p" style={{ margin: "1em" }}>
@@ -82,7 +84,12 @@ class PropertyItem extends React.Component {
                   {rooms}
                 </Typography>
               </GridContainer>
-              <Typography component="p">{description}</Typography>
+              <GridContainer justify="flex-start" alignItems="center">
+                <Typography component="p" style={{ margin: "1em" }}>
+                  <LocationOnIcon color="primary" />
+                  {address}
+                </Typography>
+              </GridContainer>
             </CardContent>
           </CardActionArea>
           <CardActions>
