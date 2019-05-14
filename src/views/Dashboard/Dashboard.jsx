@@ -11,6 +11,9 @@ import Location from "@material-ui/icons/LocationOn";
 import Button from "components/CustomButtons/Button.jsx";
 import Typography from "@material-ui/core/Typography";
 import MapAutocomplete from "../../components/MapAutocomplete";
+import { setAddress } from "../../reference/redux/actions/addListingAction";
+import { connect } from "react-redux";
+import * as geometry from 'spherical-geometry-js';
 
 // import { bugs, website, server } from "variables/general.jsx";
 
@@ -21,18 +24,20 @@ import MapAutocomplete from "../../components/MapAutocomplete";
 // } from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+import { compose } from "../../../../../AppData/Local/Microsoft/TypeScript/3.4.3/node_modules/redux";
+import { Link } from "react-router-dom";
+
 
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { address: "" };
+    this.state = {address: ""};
   }
 
   inputChange = e => {
-    const id = e.target.id;
     const value = e.target.value;
     this.setState({
-      [id]: value
+      address: value
     });
   };
 
@@ -52,12 +57,12 @@ class Dashboard extends React.Component {
             Welcome to homebase.
           </Typography>
           <MapAutocomplete
-                    label="Address"
-                    value={this.state.address}
-                    id="address"
-                    onChange={this.inputChange}
-                  />
-            <Button color="white" aria-label="edit" justIcon round>
+            label="Address"
+            value={this.state.address}
+            id="address"
+            onChange={this.inputChange}
+          />
+          <Button color="white" aria-label="edit" justIcon round component={Link} to={`/admin/listings/${this.props.position.lat}/${this.props.position.lng}`}>
             <Search />
           </Button>
           <Button color="white" aria-label="edit" justIcon round>
@@ -69,4 +74,16 @@ class Dashboard extends React.Component {
   }
 }
 
-export default withStyles(dashboardStyle)(Dashboard);
+const mapStateToProps = state => ({
+  address: state.formState.address,
+  position: state.formState.position
+});
+
+export default compose(
+  connect(
+    mapStateToProps,
+    { setAddress }
+  ),
+  withStyles(dashboardStyle)
+)(Dashboard);
+// export default withStyles(dashboardStyle)(Dashboard);
