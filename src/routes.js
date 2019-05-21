@@ -9,7 +9,7 @@ import UserProfile from "views/UserProfile/UserProfile.jsx";
 // import Maps from "views/Maps/Maps.jsx";
 import AddListing from "views/Forms/AddListing.jsx";
 import PropertiesPage from "views/Properties/Properties.jsx";
-import PropertyInfo from "./components/PropertyInfo";
+import PropertyInfo from "./components/Property/PropertyInfo";
 import EditProfile from "./views/EditProfile/EditProfile";
 import EditListing from "./views/Forms/EditListing";
 // import PropertyItem from "./components/PropertyItem";
@@ -30,6 +30,14 @@ const dashboardRoutes = [
     component: PropertiesPage,
     layout: "/admin",
     display: true
+  },
+  {
+    path: "/listings/:lat/:lng",
+    name: "Listings within 10 miles",
+    icon: Dashboard,
+    component: PropertiesPage,
+    layout: "/admin",
+    display: false
   },
   {
     path: "/user/profile",

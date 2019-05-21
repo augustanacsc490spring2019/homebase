@@ -8,9 +8,12 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // import GridContainer from "components/Grid/GridContainer.jsx";
 import Search from "@material-ui/icons/Search";
 import Location from "@material-ui/icons/LocationOn";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Typography from "@material-ui/core/Typography";
+import MapAutocomplete from "../../components/MapAutocomplete";
+import { setAddress } from "../../reference/redux/actions/addListingAction";
+import { connect } from "react-redux";
+import * as geometry from 'spherical-geometry-js';
 
 // import { bugs, website, server } from "variables/general.jsx";
 
@@ -21,38 +24,45 @@ import Typography from "@material-ui/core/Typography";
 // } from "variables/charts.jsx";
 
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+import { compose } from "../../../../../AppData/Local/Microsoft/TypeScript/3.4.3/node_modules/redux";
+import { Link } from "react-router-dom";
+
 
 class Dashboard extends React.Component {
-  state = {
-    value: 0
-  };
-  handleChange = (event, value) => {
-    this.setState({ value });
+  constructor(props) {
+    super(props);
+    this.state = {address: ""};
+  }
+
+  inputChange = e => {
+    const value = e.target.value;
+    this.setState({
+      address: value
+    });
   };
 
-  handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
   render() {
-    const { classes } = this.props;
     return (
       <div>
         <center>
+          <img
+            src={require("../../assets/img/homebaselogo.png")}
+            alt="logo"
+            style={{
+              width: 200,
+              height: 200
+            }}
+          />
           <Typography component="h2" variant="h2" gutterBottom>
             Welcome to homebase.
           </Typography>
-          <CustomInput
-            formControlProps={{
-              className: classes.margin + " " + classes.search
-            }}
-            inputProps={{
-              placeholder: "Search",
-              inputProps: {
-                "aria-label": "Search"
-              }
-            }}
+          <MapAutocomplete
+            label="Address"
+            value={this.state.address}
+            id="address"
+            onChange={this.inputChange}
           />
-          <Button color="white" aria-label="edit" justIcon round>
+          <Button color="white" aria-label="edit" justIcon round component={Link} to={{pathname: `/admin/listings/${this.props.position.lat}/${this.props.position.lng}`, state: this.props.position}}>
             <Search />
           </Button>
           <Button color="white" aria-label="edit" justIcon round>
@@ -64,4 +74,16 @@ class Dashboard extends React.Component {
   }
 }
 
-export default withStyles(dashboardStyle)(Dashboard);
+const mapStateToProps = state => ({
+  address: state.formState.address,
+  position: state.formState.position
+});
+
+export default compose(
+  connect(
+    mapStateToProps,
+    { setAddress }
+  ),
+  withStyles(dashboardStyle)
+)(Dashboard);
+// export default withStyles(dashboardStyle)(Dashboard);

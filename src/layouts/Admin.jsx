@@ -23,11 +23,10 @@ import { logIn, logOut } from "../reference/redux/actions/userAction";
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 
-
 const switchRoutes = (
   <Switch location={location}>
     {routes.map((prop, key) => {
-      const {layout, path, component } = prop;
+      const { layout, path, component } = prop;
       if (layout === "/admin") {
         return (
           <Route

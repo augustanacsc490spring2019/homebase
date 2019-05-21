@@ -10,45 +10,59 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import DescriptionIcon from "@material-ui/icons/Description";
 import MoneyIcon from "@material-ui/icons/Money";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Button from "@material-ui/core/Button";
-import { withStyles } from '@material-ui/core/styles';
-import { deleteFromFirebase } from "../reference/firebase/index";
+import { withStyles } from "@material-ui/core/styles";
+import { deleteFromFirebase } from "../../reference/firebase/index";
 import { CardActions } from "@material-ui/core";
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit
   }
 });
 class PropertyItem extends React.Component {
   render() {
-    const { id, info, classes, address, styles, description, price, rooms, imagePath } = this.props;
+    const {
+      id,
+      info,
+      name,
+      classes,
+      address,
+      styles,
+      description,
+      price,
+      rooms,
+      imagePath
+    } = this.props;
     const { card } = classes;
     const { media } = styles;
     return (
       <GridItem xs={12} sm={6} md={3} style={{ margin: "1em 0" }}>
-        <Card style={{ backgroundColor: '#ffffff' }} className={card}>
-          <CardActionArea component={Link} to={{
-        pathname: `/admin/listings/view/${id}`, //path => /admin/listings/:id
-        state: {
-          info
-        }
-      }}>
-
+        <Card style={{ backgroundColor: "#ffffff" }} className={card}>
+          <CardActionArea
+            component={Link}
+            to={{
+              pathname: `/admin/listings/view/${id}`, //path => /admin/listings/:id
+              state: {
+                info
+              }
+            }}
+          >
             <CardMedia
               component="img"
               className={media}
-              height="100%"
-              width="100%"
+              height="200px"
+              width="auto"
               image={
                 imagePath ||
                 "https://firebasestorage.googleapis.com/v0/b/homebase-3336e.appspot.com/o/placeholderImg.jpg?alt=media&token=13b6c9e5-7fdf-4955-a46f-a55d34f6f4b6"
               }
-              title={address}
+              title={name}
               style={media}
             />
             <CardContent>
               <Typography gutterBottom variant="h5" component="h2">
-                {address}
+                {name}
               </Typography>
               <GridContainer justify="flex-start" alignItems="center">
                 <Typography component="p" style={{ margin: "1em" }}>
@@ -70,16 +84,25 @@ class PropertyItem extends React.Component {
                   {rooms}
                 </Typography>
               </GridContainer>
-              <Typography component="p">{description}</Typography>
-
+              <GridContainer justify="flex-start" alignItems="center">
+                <Typography component="p" style={{ margin: "1em" }}>
+                  <LocationOnIcon color="primary" />
+                  {address}
+                </Typography>
+              </GridContainer>
             </CardContent>
           </CardActionArea>
           <CardActions>
-            <GridContainer justify="space-around" alignItems="center" style={{width: '113%'}}>
-
-
-              <Button variant="contained" color="primary"
-                component={Link} to={{
+            <GridContainer
+              justify="space-around"
+              alignItems="center"
+              style={{ width: "113%" }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                component={Link}
+                to={{
                   pathname: `/admin/listings/edit/${id}`, //path => /admin/listings/:id
                   state: {
                     info
@@ -88,7 +111,11 @@ class PropertyItem extends React.Component {
               >
                 Edit
               </Button>
-              <Button onClick={() => deleteFromFirebase(`/listings/${id}`)} variant="contained" color="secondary">
+              <Button
+                onClick={() => deleteFromFirebase(`/listings/${id}`)}
+                variant="contained"
+                color="secondary"
+              >
                 Delete
               </Button>
             </GridContainer>
@@ -99,4 +126,4 @@ class PropertyItem extends React.Component {
   }
 }
 
-export default withStyles(styles)(PropertyItem)
+export default withStyles(styles)(PropertyItem);
